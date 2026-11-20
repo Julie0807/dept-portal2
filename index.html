@@ -435,6 +435,166 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     .part-body{padding:26px 22px 22px}
   }
   @media (max-width:560px){.pillars,.biz-grid{grid-template-columns:1fr}.hero-img{margin-top:40px;border-radius:20px;aspect-ratio:16/10}}
+  /* 철근 계산기 */
+  .rb{padding:34px}
+  .rb h3{margin:0 0 6px}
+  .rb-top{display:grid;grid-template-columns:repeat(3,1fr);gap:0 20px}
+  .rb-head,.rb-line{display:grid;grid-template-columns:1.1fr 1fr .9fr 1.2fr 1.4fr 44px;gap:10px;align-items:end}
+  .rb-head{font-size:.8rem;color:var(--mute);font-weight:600;padding:0 2px 6px}
+  .rb-line{padding:10px 0;border-top:1px solid var(--line-soft);position:relative}
+  .rb-c{display:block;min-width:0}
+  .rb-l{display:none;font-size:.78rem;color:var(--mute);margin-bottom:4px;font-weight:600}
+  .rb-line select,.rb-line input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:1rem;min-width:0}
+  .rb-line input:focus,.rb-line select:focus,.rb select:focus,.rb-ship input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--focus-ring)}
+  .rb-x{text-align:right}
+  .rb-del{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--mute);font-size:1.3rem;cursor:pointer;line-height:1}
+  .rb-del:hover{background:var(--hover);color:var(--ink)}
+  .rb-seis{grid-column:1 / -1;font-size:.86rem;color:var(--ink-2);display:flex;gap:8px;align-items:center;margin-top:-2px}
+  .rb-actions{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 22px}
+  .rb-out{background:var(--surface);border:1px solid var(--line-soft);border-radius:22px;padding:22px}
+  .rb-table{width:100%;border-collapse:collapse;font-size:.92rem}
+  .rb-table th,.rb-table td{padding:10px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+  .rb-table th{font-size:.8rem;color:var(--mute);font-weight:600;white-space:nowrap}
+  .rb-table .r{text-align:right;white-space:nowrap}
+  .rb-table small{display:block;color:var(--mute);font-size:.76rem;margin-top:2px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .rb-sum{margin-top:12px}
+  .rb-sum .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+  .rb-sum .val{font-weight:600}
+  .rb-sum .big{background:var(--ink);color:var(--on-ink);border-radius:18px;padding:18px 22px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .rb-sum .big strong{font-size:1.6rem;letter-spacing:-.03em}
+  .rb-tips{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:.9rem}
+  .rb-tips li{margin:5px 0}
+  .rb-ship{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:20px;align-items:start}
+  .rb-ship .input-wrap{margin:0}
+  .rb-check{display:flex;gap:8px;align-items:center;grid-column:1 / -1;font-size:.92rem}
+  .rb-ref{padding:0}
+  .rb-ref summary{list-style:none;cursor:pointer;padding:22px 28px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+  .rb-ref summary::-webkit-details-marker{display:none}
+  .rb-ref summary span{color:var(--mute);font-size:.88rem}
+  .rb-ref summary::after{content:'＋';margin-left:auto;color:var(--blue-text);font-size:1.2rem}
+  .rb-ref[open] summary::after{content:'×'}
+  .rb-ref-body{padding:0 28px 26px}
+  .unit-sel{width:auto;border:0;border-left:1px solid var(--line);border-radius:0;background:var(--bg-alt);padding:0 14px;min-width:70px}
+  @media (max-width:860px){
+    .rb{padding:22px 16px}
+    .rb-top,.rb-ship{grid-template-columns:minmax(0,1fr)}
+    .rb-head{display:none}
+    .rb-line{grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .rb-l{display:block}
+    .rb-line .rb-c:nth-child(4){grid-column:1 / 3}
+    .rb-line .rb-c:nth-child(5){grid-column:1 / 3}
+    .rb-line .rb-x{grid-column:3;align-self:end}
+    .rb-ref summary{padding:18px 16px}.rb-ref-body{padding:0 16px 22px}
+  }
+  .rb-top>*,.rb-ship>*,.rb>*{min-width:0}
+  .rb-quote{min-width:540px}
+  .rb-table td:nth-child(2){white-space:nowrap}
+  /* 계산기 탭 */
+  .calc-tabs{display:flex;gap:6px;padding:6px;margin:0 0 22px;background:var(--hover);border-radius:22px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs::-webkit-scrollbar{display:none}
+  .calc-tab{flex:1 1 0;min-width:max-content;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 22px;border:0;border-radius:17px;background:transparent;color:var(--mute);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+  .calc-tab b{font-size:1rem;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+  .calc-tab small{font-size:.78rem;opacity:.85;white-space:nowrap}
+  .calc-tab:hover{color:var(--ink)}
+  .calc-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12),0 0 0 1px var(--line-soft)}
+  .calc-tab[aria-selected="true"] b{color:var(--blue-text)}
+  .calc-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .calc-panel[hidden]{display:none}
+  @media (max-width:640px){
+    .calc-tabs{gap:4px;padding:5px}
+    .calc-tab{min-width:0;padding:11px 6px}
+    .calc-tab b{font-size:.86rem;white-space:normal;text-align:center;line-height:1.25;word-break:keep-all}
+    .calc-tab small{display:none}
+  }
+  /* 견적요청 (3단계 요청서) */
+  .req{color:var(--warn)}
+  .qsteps{list-style:none;margin:0 0 22px;padding:0;display:flex;gap:10px}
+  .qsteps li{flex:1;min-width:0}
+  .qs{width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--mute);cursor:pointer;font-weight:600;font-size:.96rem;text-align:left;transition:border-color .2s,background .2s,color .2s}
+  .qs i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--bg-alt);color:var(--mute);font-style:normal;font-size:.9rem}
+  .qs[aria-current="step"]{border-color:var(--blue);color:var(--ink);background:var(--blue-soft)}
+  .qs[aria-current="step"] i{background:var(--blue);color:#fff}
+  .qs.done i{background:var(--blue-soft);color:var(--blue-text)}
+  .qs.done i::before{content:'✓'}
+  .qs.done i{font-size:0}.qs.done i::before{font-size:.9rem}
+  .qs:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .qlayout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:22px;align-items:start}
+  .qlayout>*,.qf-row>*{min-width:0}
+  .qmain{padding:32px}
+  .qstep h3{margin:0 0 6px;outline:0}
+  .qstep>.hint{margin:0 0 20px}
+  .qgroup{margin-bottom:18px}
+  .qgroup h4{margin:0 0 9px;font-size:.84rem;color:var(--mute);font-weight:600;letter-spacing:.02em}
+  .qchips{display:flex;flex-wrap:wrap;gap:8px}
+  .qchip{padding:10px 18px;border:1px solid var(--line);border-radius:980px;background:var(--surface);color:var(--ink);font-size:.96rem;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .1s}
+  .qchip:hover{border-color:var(--blue)}
+  .qchip:active{transform:scale(.97)}
+  .qchip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+  .qchip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .qimport{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:14px 16px;margin:6px 0 16px;border-radius:18px;background:var(--bg-alt)}
+  .qimport-t{font-weight:600;font-size:.9rem;margin-right:4px}
+  .qimport .btn{padding:8px 16px;font-size:.88rem}
+  .qimport .hint{margin:0;flex-basis:100%}
+  .qrows{display:grid;gap:10px}
+  .qrow{display:grid;grid-template-columns:minmax(80px,.8fr) 1fr 92px 34px;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line-soft);border-radius:16px;background:var(--surface)}
+  .qrow b{font-size:.98rem}
+  .qrow input,.qrow select{width:100%;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font-size:.96rem}
+  .qrow .qnote{grid-column:1 / -1}
+  .qx{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--mute);cursor:pointer;font-size:1.1rem;line-height:1}
+  .qx:hover{background:var(--hover);color:var(--ink)}
+  .qmain .field{margin-bottom:18px}
+  .qmain input[type=text],.qmain input[type=tel],.qmain input[type=email],.qmain input[type=date],.qmain textarea{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font-size:1rem;transition:border-color .2s,box-shadow .2s}
+  .qmain textarea{resize:vertical;min-height:100px;line-height:1.5}
+  .qmain input:focus,.qmain textarea:focus,.qrow input:focus,.qrow select:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--focus-ring)}
+  .qmain .invalid{border-color:var(--warn)}
+  .qmain label small{font-weight:400;color:var(--mute)}
+  .qf-row{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+  .qf-agree label{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.92rem;line-height:1.45;color:var(--ink-2);margin:0}
+  .qf-agree input{margin-top:3px}
+  .qerr{margin-top:8px;font-size:.84rem;color:var(--warn)}
+  .qnav{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .qmsg{margin:16px 0 0;padding:12px 16px;border-radius:14px;background:var(--hover);color:var(--warn);font-weight:600;font-size:.92rem}
+  .qside{padding:26px;position:sticky;top:calc(var(--nav-h,56px) + 18px)}
+  .qside-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:14px}
+  .qside-h h3{margin:0}
+  .qside-h span{font-size:.84rem;color:var(--blue-text);font-weight:600}
+  .qsum{margin:0}
+  .qsum>div{padding:12px 0;border-top:1px solid var(--line-soft)}
+  .qsum dt{font-size:.78rem;color:var(--mute);font-weight:600;margin-bottom:3px}
+  .qsum dd{margin:0;font-size:.95rem;line-height:1.5;overflow-wrap:anywhere}
+  .qsum .pv-empty{color:var(--mute)}
+  .qbar{height:6px;border-radius:6px;background:var(--bg-alt);overflow:hidden;margin-top:12px}
+  .qbar div{height:100%;width:0;background:var(--blue);transition:width .3s}
+  .qdone{padding:34px;margin-top:22px;text-align:center}
+  .qdone-ok{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:1.6rem}
+  .qdone h3{margin:0 0 6px}
+  .qdone-note{max-width:520px;margin:0 auto 16px;color:var(--ink-2);font-size:.92rem}
+  .qdone-txt{margin:0 auto;max-width:560px;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;padding:18px 20px;border-radius:16px;background:var(--bg-alt);font:inherit;font-size:.9rem;line-height:1.6}
+  .qdone .qnav{justify-content:center}
+  .qhist{padding:28px;margin-top:22px}
+  .qh-empty{padding:20px 16px;border-radius:16px;background:var(--blue-soft);color:var(--mute);text-align:center;font-size:.94rem}
+  .qitem{padding:14px 0;border-top:1px solid var(--line-soft)}
+  .qitem:first-child{border-top:0;padding-top:2px}
+  .qitem-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .qitem-top b{font-size:.96rem}
+  .qitem-top time{font-size:.78rem;color:var(--mute);white-space:nowrap}
+  .qitem-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .qitem-tags span{padding:3px 10px;border-radius:980px;background:var(--blue-soft);color:var(--blue-text);font-size:.8rem;font-weight:600}
+  .qitem p{margin:0;font-size:.88rem;color:var(--ink-2);line-height:1.5;overflow-wrap:anywhere}
+  .qitem-act{display:flex;gap:14px;margin-top:6px}
+  .qlink{background:none;border:0;padding:4px 2px;color:var(--mute);text-decoration:underline;cursor:pointer;font-size:.88rem}
+  .qlink:hover{color:var(--ink)}
+  @media (max-width:900px){
+    .qlayout{grid-template-columns:minmax(0,1fr)}
+    .qside{position:static}
+  }
+  @media (max-width:560px){
+    .qsteps{gap:6px}.qs{padding:10px 8px;flex-direction:column;gap:4px;text-align:center;font-size:.8rem}
+    .qmain,.qhist,.qdone{padding:22px 16px}
+    .qf-row{grid-template-columns:minmax(0,1fr)}
+    .qrow{grid-template-columns:1fr 84px 34px}.qrow b{grid-column:1 / 3}.qrow .qx{grid-column:3;grid-row:1}
+  }
 </style>
 </head>
 <body>
@@ -452,6 +612,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
         <li><a href="#featured">PB 브랜드</a></li>
         <li><a href="#process">절차</a></li>
         <li><a href="#calculator">계산기</a></li>
+        <li><a href="#quote">견적요청</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#resources">자료실</a></li>
       </ul>
@@ -781,28 +942,224 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   <section id="calculator" class="block">
     <div class="wrap">
       <div class="eyebrow">CALCULATOR</div>
-      <h2>소요량 계산기</h2>
-      <p class="lead">레미콘 소요량과 타워 KS 벽타일 소요 장수를 간단히 계산해 봅니다. 입력한 값은 이 브라우저 안에서만 계산되며 저장되거나 전송되지 않습니다. 참고용이므로 실제 발주 수량은 담당자와 확인하세요.</p>
+      <h2>철근·타일<br>소요량 계산기</h2>
+      <p class="lead">철근 기준(규격별 단위 중량, 1톤 번들, 골조 철근 투입량, 견적서 양식)에 맞춰 철근 수량과 견적을 계산해 볼 수 있습니다. 입력한 값은 이 화면 안에서만 계산되며 저장·전송·인쇄되지 않습니다. 정확한 단가 및 실 수량은 담당자와 확인하세요.</p>
 
-      <div class="card calc" style="margin-bottom:22px">
-        <div>
-          <h3>레미콘 소요량 (㎥)</h3>
-          <div class="field"><label for="rmL">길이</label><div class="input-wrap"><input id="rmL" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 10"><span class="unit">m</span></div></div>
-          <div class="field"><label for="rmW">폭</label><div class="input-wrap"><input id="rmW" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 5"><span class="unit">m</span></div></div>
-          <div class="field"><label for="rmT">두께</label><div class="input-wrap"><input id="rmT" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 20"><span class="unit">cm</span></div></div>
-          <div class="field"><label for="rmLoss">여유율</label><div class="input-wrap"><input id="rmLoss" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 5"><span class="unit">%</span></div><div class="hint">입력하지 않으면 0%로 계산합니다.</div></div>
-        </div>
-        <div class="result" aria-live="polite"><div id="rmResult"><p style="color:var(--mute);margin:0">길이, 폭, 두께를 입력하면 결과가 표시됩니다.</p></div></div>
+      <div class="calc-tabs" role="tablist" aria-label="계산기 선택">
+        <button type="button" class="calc-tab" role="tab" id="tab-rebar" aria-selected="true" aria-controls="panel-rebar"><b>철근 수량·견적</b><small>규격별 중량 · 견적서</small></button>
+        <button type="button" class="calc-tab" role="tab" id="tab-frame" aria-selected="false" aria-controls="panel-frame" tabindex="-1"><b>골조 철근</b><small>건물 전체 개산</small></button>
+        <button type="button" class="calc-tab" role="tab" id="tab-tile" aria-selected="false" aria-controls="panel-tile" tabindex="-1"><b>타워 KS 벽타일</b><small>장수 · 박스 · 중량</small></button>
       </div>
 
-      <div class="card calc">
+
+      <div class="calc-panel" role="tabpanel" id="panel-rebar" aria-labelledby="tab-rebar">
+      <!-- 철근 견적 계산기 -->
+      <div class="card rb" id="rebarCalc">
+        <h3>철근 수량·견적 계산기</h3>
+        <p class="hint" style="margin:0 0 18px">규격을 한 줄씩 입력하면 중량(톤)과 견적서 형태의 금액이 바로 계산됩니다. 중량은 KS 단위 질량 기준 이론 중량이며, 실제 출하 중량은 송장 기준입니다.</p>
+
+        <div class="rb-top">
+          <div class="field"><label for="rbMode">수량 입력 단위</label>
+            <select id="rbMode"><option value="pcs">본수 (가닥)</option><option value="kg">중량 (kg)</option><option value="ton">중량 (ton)</option></select></div>
+          <div class="field"><label for="rbBase">기준 단가 (톤당)</label>
+            <div class="input-wrap"><input id="rbBase" type="number" inputmode="numeric" min="0" step="any" placeholder="예: 1,000,000"><span class="unit">원/톤</span></div></div>
+          <div class="field"><label for="rbAdj">전체 가감 (톤당)</label>
+            <div class="input-wrap"><input id="rbAdj" type="number" inputmode="numeric" step="any" placeholder="예: -10000 또는 5000"><span class="unit">원/톤</span></div>
+            <div class="hint">할인은 -, 결제조건 등 할증은 +로 입력합니다.</div></div>
+        </div>
+
+        <div class="rb-head" aria-hidden="true"><span>강종</span><span>규격</span><span>길이</span><span id="rbQtyHead">수량(본)</span><span>행별 가감(원/톤)</span><span></span></div>
+        <div id="rbLines"></div>
+        <div class="rb-actions">
+          <button type="button" class="btn light" id="rbAdd">+ 규격 추가</button>
+          <button type="button" class="btn light" id="rbReset">전체 초기화</button>
+        </div>
+
+        <div class="rb-out" id="rbOut"><p style="color:var(--mute);margin:0">규격과 수량을 입력하면 결과가 표시됩니다.</p></div>
+
+        <div class="rb-ship">
+          <div class="field"><label for="rbFreight">운반비</label>
+            <div class="input-wrap"><input id="rbFreight" type="number" inputmode="numeric" min="0" step="any" placeholder="예: 160,000"><span class="unit">원</span></div>
+            <div class="hint">차량·거리에 따라 달라지므로 직접 입력합니다. 제강사 직송 25~28톤은 제주도를 제외하면 운임이 없습니다.</div></div>
+          <div class="field"><label for="rbEmpty">25톤차 공차비 (톤당, 참고용)</label>
+            <div class="input-wrap"><input id="rbEmpty" type="number" inputmode="numeric" min="0" step="any" placeholder="예: 10,000"><span class="unit">원/톤</span></div>
+            <div class="hint">25톤에 모자란 톤수에 곱해 참고 금액을 보여 줍니다(합계에는 더하지 않습니다).</div></div>
+          <label class="rb-check"><input type="checkbox" id="rbVat" checked><span>부가세 10% 포함해서 보기</span></label>
+        </div>
+      </div>
+
+      <!-- 규격표 -->
+      <details class="card rb-ref" style="margin-top:22px">
+        <summary><strong>철근 규격표 · 공정별 투입 규격</strong><span>KS 단위 질량 · 1톤 번들 본수 · 용도</span></summary>
+        <div class="rb-ref-body">
+          <div class="table-scroll"><table class="rb-table">
+            <thead><tr><th>규격</th><th>단위 질량<br>(kg/m)</th><th>8m 1본<br>(kg)</th><th>9m 1본<br>(kg)</th><th>10m 1본<br>(kg)</th><th>1톤 번들 본수<br>8m / 9m / 10m</th><th>주요 용도</th></tr></thead>
+            <tbody id="rbRefBody"></tbody>
+          </table></div>
+          <p class="hint">단위 질량은 KS D 3504 기준, 1톤 번들 본수와 용도는 영업 매뉴얼 기준입니다(D29 이상은 번들 자료 없음). 번들은 제강사와 규격(강종, 길이)에 따라 1톤 또는 2톤으로 출하됩니다.</p>
+
+          <h4 style="margin:22px 0 10px">골조 공사 시기별 투입 규격</h4>
+          <div class="table-scroll"><table class="rb-table">
+            <thead><tr><th>구분</th><th>기초공사</th><th>지하층 골조</th><th>지상층 골조</th><th>옥탑층 골조</th></tr></thead>
+            <tbody>
+              <tr><td>사용 규격</td><td>D22, D25</td><td>D19, D22, D25</td><td>D10, D13, D16</td><td>D10, D13</td></tr>
+              <tr><td>사용 길이</td><td>9m, 10m</td><td>8~12m</td><td>8m, 주문 길이</td><td>8m</td></tr>
+            </tbody>
+          </table></div>
+          <h4 style="margin:22px 0 10px">강종 표기(롤링 마크)</h4>
+          <div class="table-scroll"><table class="rb-table">
+            <thead><tr><th>구분</th><th>SD300</th><th>SD400</th><th>SD500</th><th>SD600</th></tr></thead>
+            <tbody>
+              <tr><td>일반용 표시</td><td>표기 없음</td><td>4</td><td>5</td><td>6</td></tr>
+              <tr><td>내진용 표시</td><td>-</td><td>4S</td><td>5S</td><td>6S</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </details>
+
+      </div>
+
+      <!-- 골조 철근 개산 -->
+      <div class="calc-panel" role="tabpanel" id="panel-frame" aria-labelledby="tab-frame" hidden>
+      <div class="card calc" id="frameCalc">
         <div>
-          <h3>타워 KS 벽타일 소요 장수 (300×600mm)</h3>
+          <h3>골조 철근 개산 소요량</h3>
+          <p class="hint" style="margin:0 0 16px">골조 공사 투입량(㎡당 0.07톤, 평당 0.231톤)으로 건물 전체 철근량을 대략 가늠합니다.</p>
+          <div class="field"><label for="frArea">1세대(동) 면적</label>
+            <div class="input-wrap"><input id="frArea" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 33"><select id="frUnit" class="unit-sel" aria-label="면적 단위"><option value="py">평</option><option value="m2">㎡</option></select></div></div>
+          <div class="field"><label for="frCnt">세대(동) 수</label>
+            <div class="input-wrap"><input id="frCnt" type="number" inputmode="numeric" min="1" step="1" placeholder="예: 100"><span class="unit">세대</span></div>
+            <div class="hint">입력하지 않으면 1로 계산합니다.</div></div>
+        </div>
+        <div class="result" aria-live="polite"><div id="frOut"><p style="color:var(--mute);margin:0">면적을 입력하면 결과가 표시됩니다.</p></div></div>
+      </div>
+      </div>
+
+      <!-- 타일 계산기 -->
+      <div class="calc-panel" role="tabpanel" id="panel-tile" aria-labelledby="tab-tile" hidden>
+      <div class="card calc" id="tileCalc">
+        <div>
+          <h3>타워 KS 벽타일 소요량</h3>
+          <div class="field"><label for="tlSize">타일 규격</label>
+            <select id="tlSize">
+              <option value="wall">KS 벽타일 300×600mm (8장/박스)</option>
+              <option value="floor">KS 바닥타일 300×300mm (16장/박스)</option>
+              <option value="porc">포세린 타일 600×600mm (4장/박스)</option>
+              <option value="stair">풀바디 계단타일 300×300×8T (16장/박스)</option>
+              <option value="stair2">풀바디 계단타일 200×300×8T (16장/박스)</option>
+            </select></div>
           <div class="field"><label for="tlW">시공 면 가로</label><div class="input-wrap"><input id="tlW" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 3"><span class="unit">m</span></div></div>
           <div class="field"><label for="tlH">시공 면 세로</label><div class="input-wrap"><input id="tlH" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 2.4"><span class="unit">m</span></div></div>
-          <div class="field"><label for="tlLoss">로스율</label><div class="input-wrap"><input id="tlLoss" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 10"><span class="unit">%</span></div><div class="hint">입력하지 않으면 0%로 계산합니다. 타일 한 장은 0.18㎡(300×600mm)로 계산합니다.</div></div>
+          <div class="field"><label for="tlCnt">같은 크기의 면 개수</label><div class="input-wrap"><input id="tlCnt" type="number" inputmode="numeric" min="1" step="1" placeholder="예: 4"><span class="unit">면</span></div><div class="hint">입력하지 않으면 1면으로 계산합니다. 욕실 4면처럼 같은 크기가 반복될 때 사용합니다.</div></div>
+          <div class="field"><label for="tlOpen">제외할 면적 (문·창 등)</label><div class="input-wrap"><input id="tlOpen" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 1.8"><span class="unit">㎡</span></div><div class="hint">전체 면적에서 한 번에 뺄 면적입니다.</div></div>
+          <div class="field"><label for="tlLoss">로스율</label><div class="input-wrap"><input id="tlLoss" type="number" inputmode="decimal" min="0" step="any" placeholder="예: 10"><span class="unit">%</span></div><div class="hint">입력하지 않으면 0%로 계산합니다.</div></div>
         </div>
         <div class="result" aria-live="polite"><div id="tlResult"><p style="color:var(--mute);margin:0">가로와 세로를 입력하면 결과가 표시됩니다.</p></div></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 견적요청 (3단계 요청서) -->
+  <section id="quote" class="block">
+    <div class="wrap">
+      <div class="eyebrow">QUOTE REQUEST</div>
+      <h2>견적문의</h2>
+      <p class="lead">자재를 고르고, 납품 조건을 정하고, 연락처를 확인하면 요청서가 완성됩니다. 계산기에서 구한 철근·타일 수량도 바로 가져올 수 있습니다. 작성한 내용은 이 브라우저에만 임시 저장되며 서버로 전송되지 않으니, 완성된 요청서는 ‘요청서 복사’로 담당자에게 전달해 주세요.</p>
+
+      <ol class="qsteps" id="qSteps" aria-label="견적 요청 단계">
+        <li><button type="button" class="qs" data-go="1" aria-current="step"><i>1</i><span>자재 선택</span></button></li>
+        <li><button type="button" class="qs" data-go="2"><i>2</i><span>납품 조건</span></button></li>
+        <li><button type="button" class="qs" data-go="3"><i>3</i><span>연락처·확인</span></button></li>
+      </ol>
+
+      <div class="qlayout">
+        <form class="card qmain" id="quoteForm" novalidate>
+
+          <div class="qstep" data-step="1">
+            <h3 tabindex="-1">어떤 자재가 필요하세요?</h3>
+            <p class="hint">여러 품목을 함께 고를 수 있습니다. 누르면 선택, 다시 누르면 해제됩니다.</p>
+            <div class="qgroup"><h4>골조·구조</h4><div class="qchips"><button type="button" class="qchip" data-item="철근" aria-pressed="false">철근</button><button type="button" class="qchip" data-item="형강" aria-pressed="false">형강</button><button type="button" class="qchip" data-item="PHC파일" aria-pressed="false">PHC파일</button></div></div>
+            <div class="qgroup"><h4>시멘트·조적</h4><div class="qchips"><button type="button" class="qchip" data-item="시멘트" aria-pressed="false">시멘트</button><button type="button" class="qchip" data-item="드라이몰탈" aria-pressed="false">드라이몰탈</button><button type="button" class="qchip" data-item="벽돌블록" aria-pressed="false">벽돌블록</button></div></div>
+            <div class="qgroup"><h4>내외장 마감</h4><div class="qchips"><button type="button" class="qchip" data-item="단열재" aria-pressed="false">단열재</button><button type="button" class="qchip" data-item="보드" aria-pressed="false">보드</button><button type="button" class="qchip" data-item="타일" aria-pressed="false">타일</button><button type="button" class="qchip" data-item="바닥재" aria-pressed="false">바닥재</button><button type="button" class="qchip" data-item="목재" aria-pressed="false">목재</button></div></div>
+            <div class="qgroup"><h4>설비·기타</h4><div class="qchips"><button type="button" class="qchip" data-item="위생기구" aria-pressed="false">위생기구</button><button type="button" class="qchip" data-item="가전" aria-pressed="false">가전</button><button type="button" class="qchip" data-item="동계연료" aria-pressed="false">동계연료</button></div></div>
+
+            <div class="qimport">
+              <span class="qimport-t">계산기 결과 가져오기</span>
+              <button type="button" class="btn light" id="qImpRebar">철근 계산 결과</button>
+              <button type="button" class="btn light" id="qImpTile">타일 계산 결과</button>
+              <span class="hint" id="qImpMsg" role="status" aria-live="polite"></span>
+            </div>
+
+            <div class="qrows" id="qRows" aria-live="polite"></div>
+            <div class="qerr" id="qItemsE" hidden></div>
+          </div>
+
+          <div class="qstep" data-step="2" hidden>
+            <h3 tabindex="-1">어디로, 언제까지 필요하세요?</h3>
+            <p class="hint">납품 지역을 고르고 현장 이름이나 상세 위치를 적어 주세요.</p>
+            <div class="qgroup"><h4>납품 지역 <span class="req">*</span></h4>
+              <div class="qchips" id="qRegions" role="radiogroup" aria-label="납품 지역">
+                <button type="button" class="qchip" data-region="서울" aria-pressed="false">서울</button><button type="button" class="qchip" data-region="경기" aria-pressed="false">경기</button><button type="button" class="qchip" data-region="인천" aria-pressed="false">인천</button><button type="button" class="qchip" data-region="충청" aria-pressed="false">충청</button><button type="button" class="qchip" data-region="강원" aria-pressed="false">강원</button><button type="button" class="qchip" data-region="경북" aria-pressed="false">경북</button><button type="button" class="qchip" data-region="경남" aria-pressed="false">경남</button><button type="button" class="qchip" data-region="전북" aria-pressed="false">전북</button><button type="button" class="qchip" data-region="전남" aria-pressed="false">전남</button><button type="button" class="qchip" data-region="제주" aria-pressed="false">제주</button>
+              </div></div>
+            <div class="field"><label for="qSite">현장명·상세 위치 <span class="req">*</span></label><input id="qSite" type="text" placeholder="예: 화성시 OO 신축현장" maxlength="80"></div>
+            <div class="qgroup"><h4>희망 납기</h4>
+              <div class="qchips" id="qDue" role="radiogroup" aria-label="희망 납기">
+                <button type="button" class="qchip" data-due="협의" aria-pressed="true">협의</button><button type="button" class="qchip" data-due="3일 이내" aria-pressed="false">3일 이내 (긴급)</button><button type="button" class="qchip" data-due="1주 이내" aria-pressed="false">1주 이내</button><button type="button" class="qchip" data-due="2주 이내" aria-pressed="false">2주 이내</button><button type="button" class="qchip" data-due="날짜 지정" aria-pressed="false">날짜 지정</button>
+              </div>
+              <div class="field" id="qDateBox" hidden style="margin-top:12px"><label for="qDate">납기일</label><input id="qDate" type="date"></div></div>
+            <div class="qerr" id="qSiteE" hidden></div>
+          </div>
+
+          <div class="qstep" data-step="3" hidden>
+            <h3 tabindex="-1">연락처를 확인해 주세요</h3>
+            <p class="hint">견적 상담에만 사용합니다. 오른쪽 요청서 미리보기에서 내용을 마지막으로 확인하세요.</p>
+            <div class="qf-row">
+              <div class="field"><label for="qCompany">회사명 <span class="req">*</span></label><input id="qCompany" type="text" autocomplete="organization" maxlength="60"><div class="qerr" id="qCompanyE" hidden></div></div>
+              <div class="field"><label for="qName">담당자명 <span class="req">*</span></label><input id="qName" type="text" autocomplete="name" maxlength="30"><div class="qerr" id="qNameE" hidden></div></div>
+            </div>
+            <div class="qf-row">
+              <div class="field"><label for="qTel">연락처 <span class="req">*</span></label><input id="qTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><div class="qerr" id="qTelE" hidden></div></div>
+              <div class="field"><label for="qMail">이메일 <small>(선택)</small></label><input id="qMail" type="email" autocomplete="email" maxlength="80"><div class="qerr" id="qMailE" hidden></div></div>
+            </div>
+            <div class="field"><label for="qMemo">추가 문의사항 <small>(선택)</small></label><textarea id="qMemo" rows="4" maxlength="500" placeholder="규격, 강도, 납품 조건 등을 적어 주세요."></textarea><div class="hint"><span id="qMemoN">0</span> / 500자</div></div>
+            <div class="field qf-agree"><label><input type="checkbox" id="qAgree"><span>견적 상담을 위한 개인정보(회사명·담당자·연락처) 수집·이용에 동의합니다. <span class="req">*</span></span></label><div class="qerr" id="qAgreeE" hidden></div></div>
+          </div>
+
+          <div class="qnav">
+            <button type="button" class="btn light" id="qPrev" hidden>이전</button>
+            <button type="button" class="btn" id="qNext">다음 단계</button>
+            <button type="submit" class="btn" id="qSubmit" hidden>요청서 완성하기</button>
+          </div>
+          <p class="qmsg" id="qMsg" role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <aside class="card qside" aria-label="요청서 미리보기">
+          <div class="qside-h"><h3>요청서 미리보기</h3><span id="qProg">0 / 3 완료</span></div>
+          <dl class="qsum">
+            <div><dt>자재</dt><dd id="pvItems" class="pv-empty">선택한 자재가 여기에 표시됩니다</dd></div>
+            <div><dt>납품</dt><dd id="pvSite" class="pv-empty">지역과 현장을 입력해 주세요</dd></div>
+            <div><dt>납기</dt><dd id="pvDue">협의</dd></div>
+            <div><dt>담당</dt><dd id="pvWho" class="pv-empty">회사명과 담당자를 입력해 주세요</dd></div>
+          </dl>
+          <div class="qbar" aria-hidden="true"><div id="qBar"></div></div>
+        </aside>
+      </div>
+
+      <div class="card qdone" id="qDone" hidden>
+        <div class="qdone-ok" aria-hidden="true">✓</div>
+        <h3>요청서가 완성되었습니다</h3>
+        <p class="hint" style="margin:0 0 6px">접수번호 <b id="qNo"></b></p>
+        <p class="qdone-note">아직 담당자에게 전달된 것이 아닙니다. 아래 ‘요청서 복사’로 복사해서 메신저나 메일에 붙여 넣어 보내 주세요.</p>
+        <pre class="qdone-txt" id="qTxt"></pre>
+        <div class="qnav"><button type="button" class="btn" id="qCopy">요청서 복사</button><button type="button" class="btn light" id="qNew">새 요청서 작성</button></div>
+      </div>
+
+      <div class="card qhist" id="qHist">
+        <div class="qside-h"><h3>최근 작성한 요청서</h3><button type="button" class="qlink" id="qClear" hidden>내역 비우기</button></div>
+        <p class="hint" style="margin:0 0 12px">이 브라우저에 임시 저장된 내역입니다. 연락처는 목록에 표시하지 않으며 최대 20건까지 보관합니다.</p>
+        <div id="qList"></div>
+        <div class="qh-empty" id="qEmpty">아직 작성한 요청서가 없습니다.</div>
       </div>
     </div>
   </section>
@@ -1000,49 +1357,191 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   });
   updateScore();
 
-  /* 소요량 계산기 (브라우저 안에서만 계산, 저장·전송 없음) */
-  function num(id){ return document.getElementById(id).valueAsNumber; }
-  function fmt(n, d){ return n.toLocaleString('ko-KR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
-  var hintStyle = 'style="color:var(--mute);margin:0"';
+  /* ===== 철근 계산기 (화면 표시 전용, 저장·전송 없음) ===== */
+  var UW = { 10:0.56, 13:0.995, 16:1.56, 19:2.25, 22:3.04, 25:3.98, 29:5.04, 32:6.23, 35:7.51, 38:8.95, 41:10.5 };   /* KS D 3504 단위 질량 kg/m */
+  var BUNDLE = { 10:{8:210,9:210,10:180}, 13:{8:120,9:120,10:100}, 16:{8:75,9:75,10:60}, 19:{8:56,9:49,10:44}, 22:{8:41,9:37,10:33}, 25:{8:32,9:28,10:25} };  /* 1톤 번들 본수 (영업 매뉴얼) */
+  var USES = { 10:'벽체 수평근, Slab 철근', 13:'벽체 수평근, 바닥 Slab 철근', 16:'벽체 수직 보강근, 바닥 Slab 보강근', 19:'기둥 수직근, 보 주근', 22:'기초 철근, 기둥 수직근, 보 주근', 25:'기초 철근, 기둥 수직근', 29:'기초 철근, 기둥 수직근', 32:'기초 철근, 기둥 수직근', 35:'대구경(할증 대상)', 38:'대구경(할증 대상)', 41:'대구경(할증 대상)' };
+  var DIAS = [10,13,16,19,22,25,29,32,35,38,41];
+  var LENS = [6,7,8,9,10,11,12];
+  var STEELS = [['SD300','SD300'],['SD400','SD400'],['SD500','SD500'],['SD600','SD600']];
+  var MARK = { SD300:['-','-'], SD400:['4','4S'], SD500:['5','5S'], SD600:['6','6S'] };
+  var VEH = [ ['3.5톤차',1,8,'대각선 상차'], ['5톤 카고차',5,12,''], ['5톤 축차',10,18,'단축·장축차 길이 상이'], ['10톤 카고차',10,16,''], ['25톤차',24,28,'11·12m는 츄레라'] ];
 
-  window.__calcConcrete = function(l, w, t, loss){
-    var vol = l * w * (t / 100);
-    return { vol: vol, need: vol * (1 + loss / 100) };
+  function nf(n, d){ return Number(n).toLocaleString('ko-KR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+  function won(n){ return nf(Math.round(n), 0) + '원'; }
+  function val(id){ var v = document.getElementById(id).valueAsNumber; return isNaN(v) ? null : v; }
+  function opt(list, sel, fmt){ return list.map(function(x){ var v = Array.isArray(x) ? x[0] : x; var t = Array.isArray(x) ? x[1] : (fmt ? fmt(x) : x); return '<option value="' + v + '"' + (String(v) === String(sel) ? ' selected' : '') + '>' + t + '</option>'; }).join(''); }
+
+  var rbBox = document.getElementById('rbLines');
+  var rbSeq = 0;
+  function rbAddLine(d){
+    if (rbBox.children.length >= 10) return;
+    var id = ++rbSeq;
+    var row = document.createElement('div');
+    row.className = 'rb-line';
+    row.innerHTML =
+      '<label class="rb-c"><span class="rb-l">강종</span><select data-k="steel">' + opt(STEELS, 'SD400') + '</select></label>' +
+      '<label class="rb-c"><span class="rb-l">규격</span><select data-k="dia">' + opt(DIAS, d || 10, function(x){ return 'D' + x; }) + '</select></label>' +
+      '<label class="rb-c"><span class="rb-l">길이</span><select data-k="len">' + opt(LENS, 8, function(x){ return x + 'm'; }) + '</select></label>' +
+      '<label class="rb-c"><span class="rb-l rb-qtyl">수량</span><input data-k="qty" type="number" inputmode="decimal" min="0" step="any" placeholder="0"></label>' +
+      '<label class="rb-c"><span class="rb-l">행별 가감</span><input data-k="adj" type="number" inputmode="numeric" step="any" placeholder="0"></label>' +
+      '<div class="rb-c rb-x"><button type="button" class="rb-del" aria-label="이 줄 삭제">×</button></div>' +
+      '<label class="rb-seis"><input data-k="seis" type="checkbox"><span>내진용(S)</span></label>';
+    row.querySelector('.rb-del').addEventListener('click', function(){
+      if (rbBox.children.length > 1) { row.remove(); rbCalc(); }
+      else { row.querySelectorAll('input[type=number]').forEach(function(i){ i.value = ''; }); rbCalc(); }
+    });
+    row.addEventListener('input', rbCalc); row.addEventListener('change', rbCalc);
+    rbBox.appendChild(row);
+    rbCalc();
+  }
+  function rbReset(){
+    rbBox.innerHTML = '';
+    ['rbBase','rbAdj','rbFreight','rbEmpty'].forEach(function(i){ document.getElementById(i).value = ''; });
+    rbAddLine(10); rbAddLine(13);
+  }
+
+  function rbCalc(){
+    var mode = document.getElementById('rbMode').value;
+    document.getElementById('rbQtyHead').textContent = '수량(' + (mode === 'pcs' ? '본' : mode) + ')';
+    rbBox.querySelectorAll('.rb-qtyl').forEach(function(s){ s.textContent = '수량(' + (mode === 'pcs' ? '본' : mode) + ')'; });
+    var base = val('rbBase'), adjAll = val('rbAdj') || 0, freight = val('rbFreight') || 0, empty = val('rbEmpty');
+    var out = document.getElementById('rbOut');
+    var rows = [], totPcs = 0, totTon = 0, totAmt = 0, maxLen = 0, hasPrice = base !== null && base > 0;
+    rbBox.querySelectorAll('.rb-line').forEach(function(r){
+      var g = function(k){ return r.querySelector('[data-k=' + k + ']'); };
+      var q = g('qty').valueAsNumber;
+      if (isNaN(q) || q <= 0) return;
+      var steel = g('steel').value, dia = +g('dia').value, len = +g('len').value, seis = g('seis').checked;
+      var pieceKg = UW[dia] * len, pcs, kg;
+      if (mode === 'pcs') { pcs = q; kg = q * pieceKg; }
+      else { kg = mode === 'ton' ? q * 1000 : q; pcs = Math.ceil(kg / pieceKg - 1e-9); }
+      var ton = Math.round(kg / 1000 * 1000) / 1000;
+      var adj = g('adj').valueAsNumber; if (isNaN(adj)) adj = 0;
+      var unit = hasPrice ? base + adjAll + adj : null;
+      var amt = hasPrice ? Math.round(ton * unit) : null;
+      var b = BUNDLE[dia] && BUNDLE[dia][len];
+      rows.push({ steel: steel, seis: seis, dia: dia, len: len, pcs: pcs, kg: kg, ton: ton, unit: unit, amt: amt, bundles: b ? pcs / b : null, bn: b });
+      totPcs += pcs; totTon += ton; if (hasPrice) totAmt += amt; if (len > maxLen) maxLen = len;
+    });
+    if (!rows.length) { window.__qRebar = null; out.innerHTML = '<p style="color:var(--mute);margin:0">규격과 수량을 입력하면 결과가 표시됩니다.</p>'; return; }
+    totTon = Math.round(totTon * 1000) / 1000;
+    window.__qRebar = { ton: totTon, note: rows.slice(0, 3).map(function(x){ return x.steel + ' D' + x.dia + ' ' + x.len + 'm'; }).join(', ') + (rows.length > 3 ? ' 외' : '') };
+    var h = '<div class="table-scroll"><table class="rb-table rb-quote"><thead><tr><th>강종</th><th>규격</th><th class="r">본수</th><th class="r">수량(ton)</th>' + (hasPrice ? '<th class="r">단가</th><th class="r">공급가액</th>' : '') + '</tr></thead><tbody>';
+    rows.forEach(function(x){
+      var m = MARK[x.steel] ? MARK[x.steel][x.seis ? 1 : 0] : '';
+      var bd = x.bundles !== null ? '<small>번들 약 ' + nf(x.bundles, 1) + ' (1톤 ' + x.bn + '본)</small>' : '';
+      h += '<tr><td>' + x.steel + (x.seis ? ' 내진' : '') + '<small>표기 ' + m + '</small></td><td>D' + x.dia + ' · ' + x.len + 'm</td><td class="r">' + nf(x.pcs) + '본' + bd + '</td><td class="r">' + nf(x.ton, 3) + '</td>' + (hasPrice ? '<td class="r">' + nf(x.unit) + '</td><td class="r">' + nf(x.amt) + '</td>' : '') + '</tr>';
+    });
+    h += '</tbody></table></div>';
+    var sum = '<div class="rb-sum">';
+    sum += '<div class="row"><span>총 본수</span><span class="val">' + nf(totPcs) + ' 본</span></div>';
+    sum += '<div class="big"><span>총 중량</span><strong>' + nf(totTon, 3) + ' ton</strong></div>';
+    if (hasPrice) {
+      var supply = totAmt + freight;
+      sum += '<div class="row"><span>철근 공급가액</span><span class="val">' + won(totAmt) + '</span></div>';
+      sum += '<div class="row"><span>운반비</span><span class="val">' + won(freight) + '</span></div>';
+      sum += '<div class="row"><span>공급가액 합계</span><span class="val">' + won(supply) + '</span></div>';
+      if (document.getElementById('rbVat').checked) {
+        var vat = Math.round(supply * 0.1);
+        sum += '<div class="row"><span>부가세 10%</span><span class="val">' + won(vat) + '</span></div>';
+        sum += '<div class="big"><span>합계(VAT 포함)</span><strong>' + won(supply + vat) + '</strong></div>';
+      } else sum += '<div class="big"><span>합계(VAT 별도)</span><strong>' + won(supply) + '</strong></div>';
+    } else sum += '<p class="hint">기준 단가(톤당)를 입력하면 견적 금액이 함께 계산됩니다.</p>';
+    sum += '</div>';
+    var tips = '<ul class="rb-tips">';
+    if (totTon < 25) {
+      var lack = Math.round((25 - totTon) * 1000) / 1000;
+      tips += '<li><b>25톤 미만 발주</b>: 운임이 발생합니다. 25톤차 기준 ' + nf(lack, 3) + '톤 부족' + (empty ? ' (공차비 참고 ' + won(lack * empty) + ')' : '') + '.</li>';
+    } else if (totTon <= 28) tips += '<li><b>25~28톤 발주</b>: 제강사 직송이면 제주도를 제외한 전 지역 운임이 없습니다(수입산은 수도권).</li>';
+    else tips += '<li><b>28톤 초과</b>: 25톤차 기준 약 ' + Math.ceil(totTon / 28) + '~' + Math.ceil(totTon / 25) + '대 분량입니다.</li>';
+    var vs = VEH.filter(function(v){ return totTon >= v[1] && totTon <= v[2]; }).map(function(v){ return v[0] + '(' + v[1] + '~' + v[2] + '톤' + (v[3] ? ', ' + v[3] : '') + ')'; });
+    if (vs.length) tips += '<li><b>적재 가능 차량</b>: ' + vs.join(', ') + '</li>';
+    if (maxLen >= 11) tips += '<li><b>11·12m 장척</b>은 길이가 길어 츄레라 상차가 필요할 수 있습니다.</li>';
+    if (mode !== 'pcs') tips += '<li>중량 입력은 본수로 환산해 올림했습니다. 실제 본수는 번들 단위로 출하됩니다.</li>';
+    tips += '</ul>';
+    out.innerHTML = h + sum + tips;
+  }
+
+  /* 규격표 */
+  (function(){
+    var tb = document.getElementById('rbRefBody'), h = '';
+    DIAS.forEach(function(d){
+      var b = BUNDLE[d];
+      h += '<tr><td>D' + d + '</td><td>' + UW[d].toFixed(3).replace(/0$/, '') + '</td><td>' + nf(UW[d] * 8, 2) + '</td><td>' + nf(UW[d] * 9, 2) + '</td><td>' + nf(UW[d] * 10, 2) + '</td><td>' + (b ? b[8] + ' / ' + b[9] + ' / ' + b[10] : '-') + '</td><td>' + USES[d] + '</td></tr>';
+    });
+    tb.innerHTML = h;
+  })();
+
+  document.getElementById('rbAdd').addEventListener('click', function(){ rbAddLine(10); });
+  document.getElementById('rbReset').addEventListener('click', rbReset);
+  ['rbMode','rbBase','rbAdj','rbFreight','rbEmpty','rbVat'].forEach(function(id){
+    var e = document.getElementById(id); e.addEventListener('input', rbCalc); e.addEventListener('change', rbCalc);
+  });
+  rbReset();
+
+  /* 골조 철근 개산 (㎡당 0.07톤, 평당 0.231톤) */
+  window.__calcFrame = function(area, unit, cnt){
+    var per = unit === 'm2' ? 0.07 : 0.231;
+    var one = area * per;
+    return { one: one, total: one * cnt, per: per };
   };
-  window.__calcTile = function(w, h, loss){
-    var area = w * h;
+  function frCalc(){
+    var out = document.getElementById('frOut');
+    var a = val('frArea'), c = val('frCnt'); if (c === null || c === 0) c = 1;
+    if (a === null) { out.innerHTML = '<p style="color:var(--mute);margin:0">면적을 입력하면 결과가 표시됩니다.</p>'; return; }
+    if (a < 0 || c < 0) { out.innerHTML = '<p class="err">0 이상의 값을 입력해 주세요.</p>'; return; }
+    var u = document.getElementById('frUnit').value;
+    var r = window.__calcFrame(a, u, c);
+    var tr = Math.ceil(r.total / 28 - 1e-9), tr2 = Math.ceil(r.total / 25 - 1e-9);
+    out.innerHTML =
+      '<div class="row"><span>투입량 기준</span><span class="val">' + (u === 'm2' ? '0.07톤/㎡' : '0.231톤/평') + '</span></div>' +
+      '<div class="row"><span>1세대(동) 소요량</span><span class="val">' + nf(r.one, 2) + ' ton</span></div>' +
+      '<div class="big"><span>총 소요량</span><strong>' + nf(r.total, 2) + ' ton</strong></div>' +
+      '<div class="row"><span>25~28톤차 환산</span><span class="val">' + (r.total < 25 ? '25톤 미만 (소량 차량)' : '약 ' + (tr === tr2 ? tr : tr + '~' + tr2) + '대') + '</span></div>' +
+      '<p class="hint" style="margin:8px 0 0">골조 공사 전체의 개산치이며 구조·층수에 따라 달라집니다. 예) 30평 1세대 6.93톤, 33평 100세대 약 762톤.</p>';
+  }
+  ['frArea','frCnt','frUnit'].forEach(function(id){ var e = document.getElementById(id); e.addEventListener('input', frCalc); e.addEventListener('change', frCalc); });
+  frCalc();
+
+  /* 타일 계산기 */
+  var TILES = {
+    wall:  { name:'KS 벽타일 300×600mm', w:0.3, h:0.6, box:8,  kg:23 },
+    floor: { name:'KS 바닥타일 300×300mm', w:0.3, h:0.3, box:16, kg:22.5 },
+    porc:  { name:'포세린 타일 600×600mm', w:0.6, h:0.6, box:4,  kg:28 },
+    stair: { name:'풀바디 계단타일 300×300×8T', w:0.3, h:0.3, box:16, kg:null },
+    stair2:{ name:'풀바디 계단타일 200×300×8T', w:0.2, h:0.3, box:16, kg:null }
+  };
+  window.__calcTile = function(w, h, loss, opts){
+    opts = opts || {};
+    var t = TILES[opts.size || 'wall'], cnt = opts.cnt || 1, open = opts.open || 0;
+    var area = Math.max(0, w * h * cnt - open);
     var withLoss = area * (1 + loss / 100);
-    return { area: area, withLoss: withLoss, count: Math.ceil(withLoss / 0.18 - 1e-9) };
+    var each = t.w * t.h;
+    var count = Math.ceil(withLoss / each - 1e-9);
+    var boxes = Math.ceil(count / t.box - 1e-9);
+    return { area: area, withLoss: withLoss, count: count, boxes: boxes, order: boxes * t.box, spare: boxes * t.box - count, kg: t.kg ? boxes * t.kg : null, each: each, t: t };
   };
-
-  function calcConcrete(){
-    var out = document.getElementById('rmResult');
-    var l = num('rmL'), w = num('rmW'), t = num('rmT'), loss = num('rmLoss');
-    if (isNaN(loss)) loss = 0;
-    if (isNaN(l) || isNaN(w) || isNaN(t)) { out.innerHTML = '<p ' + hintStyle + '>길이, 폭, 두께를 입력하면 결과가 표시됩니다.</p>'; return; }
-    if (l < 0 || w < 0 || t < 0 || loss < 0) { out.innerHTML = '<p class="err">0 이상의 값을 입력해 주세요.</p>'; return; }
-    var r = window.__calcConcrete(l, w, t, loss);
-    out.innerHTML =
-      '<div class="row"><span>부피 (길이 × 폭 × 두께)</span><span class="val">' + fmt(r.vol, 2) + ' ㎥</span></div>' +
-      '<div class="big"><span>여유율 포함 소요량</span><strong>' + fmt(r.need, 2) + ' ㎥</strong></div>' +
-      '<p class="hint" style="margin:8px 0 0">소수 둘째 자리까지 표시합니다. 실제 발주 수량은 담당자와 확인하세요.</p>';
-  }
-  function calcTile(){
+  function tlCalc(){
     var out = document.getElementById('tlResult');
-    var w = num('tlW'), h = num('tlH'), loss = num('tlLoss');
-    if (isNaN(loss)) loss = 0;
-    if (isNaN(w) || isNaN(h)) { out.innerHTML = '<p ' + hintStyle + '>가로와 세로를 입력하면 결과가 표시됩니다.</p>'; return; }
-    if (w < 0 || h < 0 || loss < 0) { out.innerHTML = '<p class="err">0 이상의 값을 입력해 주세요.</p>'; return; }
-    var r = window.__calcTile(w, h, loss);
-    out.innerHTML =
-      '<div class="row"><span>시공 면적</span><span class="val">' + fmt(r.area, 2) + ' ㎡</span></div>' +
-      '<div class="row"><span>로스율 포함 면적</span><span class="val">' + fmt(r.withLoss, 2) + ' ㎡</span></div>' +
-      '<div class="big"><span>필요 장수</span><strong>' + fmt(r.count, 0) + ' 장</strong></div>' +
-      '<p class="hint" style="margin:8px 0 0">타일 한 장 0.18㎡(300×600mm) 기준이며, 소수점은 올림합니다.</p>';
+    var w = val('tlW'), h = val('tlH'), loss = val('tlLoss'), cnt = val('tlCnt'), open = val('tlOpen');
+    if (loss === null) loss = 0; if (cnt === null || cnt === 0) cnt = 1; if (open === null) open = 0;
+    if (w === null || h === null) { window.__qTile = null; out.innerHTML = '<p style="color:var(--mute);margin:0">가로와 세로를 입력하면 결과가 표시됩니다.</p>'; return; }
+    if (w < 0 || h < 0 || loss < 0 || cnt < 0 || open < 0) { out.innerHTML = '<p class="err">0 이상의 값을 입력해 주세요.</p>'; return; }
+    var r = window.__calcTile(w, h, loss, { size: document.getElementById('tlSize').value, cnt: cnt, open: open });
+    window.__qTile = r.boxes > 0 ? { boxes: r.boxes, count: r.count, note: r.t.name } : null;
+    var warn = (w * h * cnt - open) < 0 ? '<p class="err">제외 면적이 시공 면적보다 큽니다.</p>' : '';
+    out.innerHTML = warn +
+      '<div class="row"><span>시공 면적' + (cnt > 1 ? ' (' + cnt + '면)' : '') + (open ? ' − 제외' : '') + '</span><span class="val">' + nf(r.area, 2) + ' ㎡</span></div>' +
+      '<div class="row"><span>로스율 포함 면적</span><span class="val">' + nf(r.withLoss, 2) + ' ㎡</span></div>' +
+      '<div class="row"><span>필요 장수</span><span class="val">' + nf(r.count) + ' 장</span></div>' +
+      '<div class="big"><span>주문 박스</span><strong>' + nf(r.boxes) + ' 박스</strong></div>' +
+      '<div class="row"><span>주문 장수 (' + r.t.box + '장/박스)</span><span class="val">' + nf(r.order) + ' 장 (여유 ' + nf(r.spare) + '장)</span></div>' +
+      (r.kg ? '<div class="row"><span>예상 총 중량</span><span class="val">' + nf(r.kg, 1) + ' kg</span></div>' : '') +
+      '<p class="hint" style="margin:8px 0 0">' + r.t.name + ' 기준(한 장 ' + nf(r.each, 2) + '㎡), 소수점은 올림합니다. 박스당 장수와 중량은 TOWER 타일 리플릿 기준입니다.</p>';
   }
-  ['rmL','rmW','rmT','rmLoss'].forEach(function(id){ var e = document.getElementById(id); e.addEventListener('input', calcConcrete); });
-  ['tlW','tlH','tlLoss'].forEach(function(id){ var e = document.getElementById(id); e.addEventListener('input', calcTile); });
-  calcConcrete(); calcTile();
+  ['tlSize','tlW','tlH','tlLoss','tlCnt','tlOpen'].forEach(function(id){ var e = document.getElementById(id); e.addEventListener('input', tlCalc); e.addEventListener('change', tlCalc); });
+  tlCalc();
 
   /* FAQ 검색 + 분류 */
   var faqItems = Array.prototype.slice.call(document.querySelectorAll('#faqList details'));
@@ -1153,6 +1652,240 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     });
     show(items[0]);
   });
+
+  /* 계산기 탭 전환 (철근 수량·견적 / 골조 철근 / 타워 KS 벽타일) */
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.calc-tab'));
+    function pick(tab, focus){
+      tabs.forEach(function(t){
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ pick(t); });
+      t.addEventListener('keydown', function(e){
+        var n = null;
+        if (e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') n = tabs[0];
+        else if (e.key === 'End') n = tabs[tabs.length - 1];
+        if (n) { e.preventDefault(); pick(n, true); }
+      });
+    });
+  })();
+
+  /* ===== 견적요청: 3단계 요청서 (서버 전송 없음, 이 브라우저에만 임시 저장) ===== */
+  (function(){
+    var KEY = 'portal-quote-requests', MAX = 20;
+    var UNITS = ['톤','㎡','㎥','본','장','박스','포','개','대','L','기타'];
+    var DEF = { '철근':'톤','형강':'톤','PHC파일':'본','단열재':'㎡','보드':'장','타일':'박스','위생기구':'개','가전':'대','시멘트':'톤','드라이몰탈':'포','벽돌블록':'장','바닥재':'㎡','목재':'㎥','동계연료':'L' };
+    var form = document.getElementById('quoteForm');
+    var $ = function(id){ return document.getElementById(id); };
+    var steps = Array.prototype.slice.call(form.querySelectorAll('.qstep'));
+    var stepBtns = Array.prototype.slice.call(document.querySelectorAll('#qSteps .qs'));
+    var cur = 1, maxOk = 0;
+    var sel = [], region = '', due = '협의', memStore = [];
+
+    function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function v(id){ return $(id).value.trim(); }
+    function stamp(t){ var d = new Date(t), p = function(n){ return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); }
+    function load(){ try { var a = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return memStore; } }
+    function save(a){ memStore = a; try { localStorage.setItem(KEY, JSON.stringify(a)); return true; } catch (e) { return false; } }
+    function itemText(it){ return it.name + (it.qty ? ' ' + it.qty + (it.unit === '기타' ? '' : it.unit) : '') + (it.note ? ' (' + it.note + ')' : ''); }
+    function dueText(){ return due === '날짜 지정' ? (v('qDate') || '날짜 미정') : due; }
+    function plain(q){
+      var L = ['[견적 요청서] ' + q.no, '회사명: ' + q.company, '담당자: ' + q.name, '연락처: ' + q.tel];
+      if (q.mail) L.push('이메일: ' + q.mail);
+      L.push('요청 자재: ' + q.items.map(itemText).join(', '), '납품 현장: ' + q.region + ' ' + q.site, '희망 납기: ' + q.due);
+      if (q.memo) L.push('추가 문의: ' + q.memo);
+      L.push('작성: ' + stamp(q.at));
+      return L.join('\n');
+    }
+
+    /* ---- 단계 이동 ---- */
+    function go(n, focus){
+      cur = n;
+      steps.forEach(function(s, i){ s.hidden = (i + 1) !== n; });
+      stepBtns.forEach(function(b, i){
+        b.classList.toggle('done', i + 1 < n || (i + 1 <= maxOk && i + 1 !== n));
+        if (i + 1 === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+      $('qPrev').hidden = n === 1; $('qNext').hidden = n === 3; $('qSubmit').hidden = n !== 3;
+      $('qMsg').hidden = true;
+      if (focus) { var h = steps[n - 1].querySelector('h3'); if (h) h.focus({ preventScroll: true }); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }
+    function err(id, text){ var e = $(id + 'E'); if (e) { e.textContent = text; e.hidden = false; } var f = $(id); if (f && f.classList) f.classList.add('invalid'); }
+    function clear(){ form.querySelectorAll('.invalid').forEach(function(e){ e.classList.remove('invalid'); }); form.querySelectorAll('.qerr').forEach(function(e){ e.hidden = true; }); }
+    function validate(n){
+      clear(); var first = null;
+      if (n === 1 && !sel.length) { $('qItemsE').textContent = '필요한 자재를 한 가지 이상 선택해 주세요.'; $('qItemsE').hidden = false; first = form.querySelector('.qchip'); }
+      if (n === 2) {
+        if (!region) { $('qSiteE').textContent = '납품 지역을 선택해 주세요.'; $('qSiteE').hidden = false; first = form.querySelector('[data-region]'); }
+        if (!v('qSite')) { err('qSite', '현장명이나 상세 위치를 입력해 주세요.'); first = first || $('qSite'); }
+        if (due === '날짜 지정' && !v('qDate')) { $('qSiteE').textContent = '납기일을 선택하거나 다른 납기 옵션을 골라 주세요.'; $('qSiteE').hidden = false; first = first || $('qDate'); }
+      }
+      if (n === 3) {
+        if (!v('qCompany')) { err('qCompany', '회사명을 입력해 주세요.'); first = first || $('qCompany'); }
+        if (!v('qName')) { err('qName', '담당자명을 입력해 주세요.'); first = first || $('qName'); }
+        var tel = v('qTel');
+        if (!tel) { err('qTel', '연락처를 입력해 주세요.'); first = first || $('qTel'); }
+        else if (tel.replace(/[^0-9]/g, '').length < 8 || /[^0-9\-+()\s]/.test(tel)) { err('qTel', '숫자와 하이픈(-)으로 입력해 주세요.'); first = first || $('qTel'); }
+        if (v('qMail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('qMail'))) { err('qMail', '이메일 형식을 확인해 주세요.'); first = first || $('qMail'); }
+        if (!$('qAgree').checked) { $('qAgreeE').textContent = '개인정보 수집·이용에 동의해 주세요.'; $('qAgreeE').hidden = false; first = first || $('qAgree'); }
+      }
+      if (first) { first.focus(); var m = $('qMsg'); m.textContent = '입력 내용을 확인해 주세요.'; m.hidden = false; return false; }
+      return true;
+    }
+    $('qNext').addEventListener('click', function(){ if (validate(cur)) { maxOk = Math.max(maxOk, cur); go(cur + 1, true); } });
+    $('qPrev').addEventListener('click', function(){ go(cur - 1, true); });
+    stepBtns.forEach(function(b, i){
+      b.addEventListener('click', function(){
+        var t = i + 1;
+        if (t <= cur) { clear(); go(t, true); return; }
+        for (var s = cur; s < t; s++) { if (!validate(s)) { go(s, false); return; } maxOk = Math.max(maxOk, s); }
+        go(t, true);
+      });
+    });
+
+    /* ---- 자재 선택 ---- */
+    function rows(){
+      var box = $('qRows');
+      box.innerHTML = sel.map(function(it, i){
+        return '<div class="qrow" data-i="' + i + '"><b>' + esc(it.name) + '</b>' +
+          '<input type="text" inputmode="decimal" data-k="qty" aria-label="' + esc(it.name) + ' 수량" placeholder="수량(미정이면 비워 두세요)" value="' + esc(it.qty) + '" maxlength="14">' +
+          '<select data-k="unit" aria-label="' + esc(it.name) + ' 단위">' + UNITS.map(function(u){ return '<option' + (u === it.unit ? ' selected' : '') + '>' + u + '</option>'; }).join('') + '</select>' +
+          '<button type="button" class="qx" data-del="' + i + '" aria-label="' + esc(it.name) + ' 빼기">×</button>' +
+          '<input class="qnote" type="text" data-k="note" aria-label="' + esc(it.name) + ' 규격·비고" placeholder="규격·비고 (예: SD400 D13 8m)" value="' + esc(it.note) + '" maxlength="60"></div>';
+      }).join('');
+      form.querySelectorAll('.qchip[data-item]').forEach(function(c){
+        c.setAttribute('aria-pressed', sel.some(function(s){ return s.name === c.getAttribute('data-item'); }) ? 'true' : 'false');
+      });
+      preview();
+    }
+    function toggle(name){
+      var i = sel.map(function(s){ return s.name; }).indexOf(name);
+      if (i >= 0) sel.splice(i, 1); else sel.push({ name: name, qty: '', unit: DEF[name] || '개', note: '' });
+      $('qItemsE').hidden = true; rows();
+    }
+    function put(name, qty, unit, note){
+      var it = sel.filter(function(s){ return s.name === name; })[0];
+      if (!it) { it = { name: name }; sel.push(it); }
+      it.qty = qty; it.unit = unit; it.note = note || it.note || '';
+      $('qItemsE').hidden = true; rows();
+    }
+    form.addEventListener('click', function(e){
+      var c = e.target.closest('.qchip');
+      if (c) {
+        if (c.hasAttribute('data-item')) toggle(c.getAttribute('data-item'));
+        else if (c.hasAttribute('data-region')) {
+          region = c.getAttribute('data-region');
+          form.querySelectorAll('[data-region]').forEach(function(x){ x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+          $('qSiteE').hidden = true; preview();
+        } else if (c.hasAttribute('data-due')) {
+          due = c.getAttribute('data-due');
+          form.querySelectorAll('[data-due]').forEach(function(x){ x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+          $('qDateBox').hidden = due !== '날짜 지정'; if (due === '날짜 지정') $('qDate').focus(); preview();
+        }
+        return;
+      }
+      var d = e.target.closest('[data-del]');
+      if (d) { sel.splice(+d.getAttribute('data-del'), 1); rows(); }
+    });
+    $('qRows').addEventListener('input', function(e){
+      var r = e.target.closest('.qrow'), k = e.target.getAttribute('data-k'); if (!r || !k) return;
+      sel[+r.getAttribute('data-i')][k] = e.target.value; preview();
+    });
+    $('qRows').addEventListener('change', function(e){
+      var r = e.target.closest('.qrow'), k = e.target.getAttribute('data-k'); if (!r || !k) return;
+      sel[+r.getAttribute('data-i')][k] = e.target.value; preview();
+    });
+
+    /* ---- 계산기 결과 가져오기 ---- */
+    function imp(kind){
+      var m = $('qImpMsg'), r = kind === 'rebar' ? window.__qRebar : window.__qTile;
+      if (!r) { m.textContent = (kind === 'rebar' ? '철근' : '타일') + ' 계산기에서 먼저 수량을 계산해 주세요.'; return; }
+      if (kind === 'rebar') put('철근', String(r.ton), '톤', r.note); else put('타일', String(r.boxes), '박스', r.note);
+      m.textContent = (kind === 'rebar' ? '철근 ' + r.ton + '톤' : '타일 ' + r.boxes + '박스') + '을 가져왔습니다.';
+    }
+    $('qImpRebar').addEventListener('click', function(){ imp('rebar'); });
+    $('qImpTile').addEventListener('click', function(){ imp('tile'); });
+
+    /* ---- 미리보기 ---- */
+    function setPv(id, text, empty){ var e = $(id); e.textContent = text; e.classList.toggle('pv-empty', !!empty); }
+    function preview(){
+      var i1 = sel.length > 0, i2 = !!region && !!v('qSite'), i3 = !!v('qCompany') && !!v('qName');
+      setPv('pvItems', i1 ? sel.map(itemText).join(' · ') : '선택한 자재가 여기에 표시됩니다', !i1);
+      setPv('pvSite', (region || v('qSite')) ? ((region || '') + ' ' + v('qSite')).trim() : '지역과 현장을 입력해 주세요', !(region || v('qSite')));
+      setPv('pvDue', dueText(), false);
+      setPv('pvWho', (v('qCompany') || v('qName')) ? (v('qCompany') + ' ' + v('qName')).trim() : '회사명과 담당자를 입력해 주세요', !(v('qCompany') || v('qName')));
+      var n = (i1 ? 1 : 0) + (i2 ? 1 : 0) + (i3 ? 1 : 0);
+      $('qProg').textContent = n + ' / 3 완료'; $('qBar').style.width = Math.round(n / 3 * 100) + '%';
+    }
+    form.addEventListener('input', function(e){
+      var t = e.target; if (t.classList) t.classList.remove('invalid');
+      var er = $(t.id + 'E'); if (er) er.hidden = true;
+      if (t.id === 'qMemo') $('qMemoN').textContent = t.value.length;
+      preview();
+    });
+    form.addEventListener('change', function(e){ var er = $(e.target.id + 'E'); if (er) er.hidden = true; preview(); });
+
+    /* ---- 제출·내역 ---- */
+    function reset(){
+      sel = []; region = ''; due = '협의'; maxOk = 0;
+      form.querySelectorAll('input[type=text],input[type=tel],input[type=email],input[type=date],textarea').forEach(function(f){ f.value = ''; });
+      $('qAgree').checked = false; $('qMemoN').textContent = '0';
+      form.querySelectorAll('[data-region]').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
+      form.querySelectorAll('[data-due]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-due') === '협의' ? 'true' : 'false'); });
+      $('qDateBox').hidden = true; $('qImpMsg').textContent = ''; clear(); rows(); go(1, false);
+    }
+    var lastText = '';
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      for (var s = 1; s <= 3; s++) { if (!validate(s)) { go(s, false); var f = form.querySelector('.invalid'); return; } }
+      var arr = load(), d = new Date(), p = function(n){ return (n < 10 ? '0' : '') + n; };
+      var day = d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate());
+      var seq = arr.filter(function(q){ return q.no && q.no.indexOf('Q-' + day) === 0; }).length + 1;
+      var rec = { id: 'q' + Date.now(), no: 'Q-' + day + '-' + p(seq), at: Date.now(), items: sel.map(function(s){ return { name: s.name, qty: String(s.qty || '').trim(), unit: s.unit, note: String(s.note || '').trim() }; }),
+        region: region, site: v('qSite'), due: dueText(), company: v('qCompany'), name: v('qName'), tel: v('qTel'), mail: v('qMail'), memo: v('qMemo') };
+      arr.unshift(rec); var ok = save(arr.slice(0, MAX)); lastText = plain(rec);
+      $('qNo').textContent = rec.no; $('qTxt').textContent = lastText;
+      $('qDone').hidden = false; form.closest('.qlayout').hidden = true; $('qSteps').hidden = true; renderList();
+      $('qDone').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!ok) $('qTxt').textContent = lastText + '\n\n※ 이 브라우저는 저장을 막고 있어 화면을 닫으면 내역이 사라집니다.';
+    });
+    function copyText(text, done){
+      function fb(){ var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (x) {} document.body.removeChild(t); done(ok); }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function(){ done(true); }, fb); else fb();
+    }
+    $('qCopy').addEventListener('click', function(){ var b = this; copyText(lastText, function(ok){ b.textContent = ok ? '복사되었습니다' : '복사 실패 - 직접 선택해 복사해 주세요'; setTimeout(function(){ b.textContent = '요청서 복사'; }, 1800); }); });
+    $('qNew').addEventListener('click', function(){ $('qDone').hidden = true; form.closest('.qlayout').hidden = false; $('qSteps').hidden = false; reset(); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+
+    function renderList(){
+      var arr = load();
+      $('qList').innerHTML = arr.map(function(q){
+        var its = q.items || [];
+        return '<div class="qitem" data-id="' + esc(q.id) + '"><div class="qitem-top"><b>' + esc(q.company) + ' · ' + esc(q.no || '') + '</b><time>' + stamp(q.at) + '</time></div>' +
+          '<div class="qitem-tags">' + its.map(function(it){ return '<span>' + esc(it.name) + (it.qty ? ' ' + esc(it.qty) + esc(it.unit === '기타' ? '' : it.unit) : '') + '</span>'; }).join('') + '</div>' +
+          '<p>' + esc(q.region || '') + ' ' + esc(q.site || '') + ' · 납기 ' + esc(q.due || '') + ' · 담당 ' + esc(q.name) + '</p>' +
+          '<div class="qitem-act"><button type="button" class="qlink" data-act="copy">요청서 복사</button><button type="button" class="qlink" data-act="del">삭제</button></div></div>';
+      }).join('');
+      $('qEmpty').hidden = arr.length !== 0; $('qClear').hidden = arr.length === 0;
+    }
+    $('qList').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-act]'); if (!b) return;
+      var id = b.closest('.qitem').getAttribute('data-id'), arr = load();
+      if (b.getAttribute('data-act') === 'del') { save(arr.filter(function(q){ return q.id !== id; })); renderList(); return; }
+      var q = arr.filter(function(x){ return x.id === id; })[0]; if (!q) return;
+      copyText(plain(q), function(ok){ b.textContent = ok ? '복사됨' : '복사 실패'; setTimeout(function(){ b.textContent = '요청서 복사'; }, 1600); });
+    });
+    $('qClear').addEventListener('click', function(){ if (window.confirm('저장된 요청서 내역을 모두 지울까요?')) { save([]); renderList(); } });
+
+    rows(); go(1, false); renderList();
+  })();
 
 })();
 </script>
