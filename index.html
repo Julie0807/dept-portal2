@@ -16,15 +16,15 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 <meta property="og:site_name" content="하우징플랫폼">
 <meta property="og:title" content="하우징플랫폼 | 건축의 모든 것을 잇다">
 <meta property="og:description" content="기초 자재부터 마감재, PB 브랜드까지. 유진기업 하우징플랫폼 건자재 사업의 품목과 공정별 자재를 한곳에서 안내합니다.">
-<meta property="og:url" content="https://portal.example.com/">
-<meta property="og:image" content="https://portal.example.com/files/preview.png">
+<meta property="og:url" content="https://julie0807.github.io/dept-portal2/">
+<meta property="og:image" content="https://julie0807.github.io/dept-portal2/files/preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="하우징플랫폼 — 건축의 모든 것을 잇다">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="하우징플랫폼 | 건축의 모든 것을 잇다">
 <meta name="twitter:description" content="기초 자재부터 마감재, PB 브랜드까지. 유진기업 하우징플랫폼 건자재 사업의 품목과 공정별 자재를 한곳에서 안내합니다.">
-<meta name="twitter:image" content="https://portal.example.com/files/preview.png">
+<meta name="twitter:image" content="https://julie0807.github.io/dept-portal2/files/preview.png">
 <title>하우징플랫폼 | 건축의 모든 것을 잇다</title>
 <style>
   :root{
@@ -382,6 +382,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .part-media{position:relative;background:var(--bg-alt);min-height:360px}
   .part-media .mi{position:absolute;inset:0;display:grid;grid-auto-rows:minmax(0,1fr);gap:3px}
   .part-media .mi.two{grid-template-rows:minmax(0,1.35fr) minmax(0,1fr)}
+  .part-media .mi.two.fitw{grid-template-rows:minmax(0,1.8fr) minmax(0,1fr);gap:0}
   .part-media .fit img,.part-media .mi.fit{background:#ebebeb}
   .part-media .fit img{object-fit:contain}
   .part-media .mi.fitw,.part-media .fitw img{background:#fff}
@@ -431,6 +432,9 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     .part{grid-template-columns:1fr}
     .part:nth-child(even) .part-media{order:0}
     .part-media{min-height:0;aspect-ratio:4/3}
+    .part-media:has(.mi.two.fitw){aspect-ratio:auto}
+    .part-media .mi.two.fitw{position:static;display:block}
+    .part-media .mi.two.fitw img{height:auto;object-fit:contain}
     .part-media .mi.two,.part-media .mi.three{grid-template-rows:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
     .part-body{padding:26px 22px 22px}
   }
@@ -595,6 +599,24 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     .qf-row{grid-template-columns:minmax(0,1fr)}
     .qrow{grid-template-columns:1fr 84px 34px}.qrow b{grid-column:1 / 3}.qrow .qx{grid-column:3;grid-row:1}
   }
+
+  .qnotice{padding:14px 16px;border-radius:16px;background:var(--blue-soft);color:var(--ink-2);font-size:.92rem;line-height:1.55}
+  /* QR 버튼·팝업 */
+  .qr-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;order:2;transition:background .2s}
+  .qr-btn:hover{background:var(--hover)}
+  .qr-btn:focus-visible,.qr-close:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  @media (max-width:820px){.qr-btn{margin-left:auto}.qr-btn+.theme-btn{margin-left:0}}
+  .qr-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.5)}
+  .qr-modal[hidden]{display:none}
+  .qr-box{position:relative;width:min(380px,100%);padding:30px 26px 26px;border-radius:24px;background:var(--surface);color:var(--ink);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  .qr-box h2{margin:0 0 6px;font-size:1.3rem}
+  .qr-sub{margin:0 0 16px;color:var(--mute);font-size:.92rem}
+  .qr-frame{width:min(240px,100%);margin:0 auto 14px;padding:6px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+  .qr-svg{display:block;width:100%;height:auto}
+  .qr-url{display:block;margin-bottom:16px;color:var(--blue-text);font-size:.84rem;overflow-wrap:anywhere}
+  .qr-act .btn{display:inline-block}
+  .qr-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:var(--mute);font-size:1.6rem;line-height:1;cursor:pointer}
+  .qr-close:hover{background:var(--hover);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -602,6 +624,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 <header class="topbar" id="topbar">
   <div class="bar">
     <a class="brand" href="#home"><span class="dot" aria-hidden="true"></span>하우징플랫폼</a>
+    <button type="button" class="qr-btn" id="qrBtn" aria-label="접속 QR 코드 보기" aria-haspopup="dialog" title="QR 코드"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1"/><path d="M14 14h2.5v2.5H14zM18 18h2.5v2.5H18zM18 14h2.5M14 18v2.5" stroke-linecap="round"/></svg></button>
     <button type="button" class="theme-btn" id="themeBtn" aria-label="다크 모드로 전환" aria-pressed="false" title="다크 모드"><span aria-hidden="true">&#9790;</span></button>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="menuNav">&#9776;</button>
     <nav aria-label="주요 메뉴" id="menuNav">
@@ -612,7 +635,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
         <li><a href="#featured">PB 브랜드</a></li>
         <li><a href="#process">절차</a></li>
         <li><a href="#calculator">계산기</a></li>
-        <li><a href="#quote">견적요청</a></li>
+        <li><a href="#quote">견적문의</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#resources">자료실</a></li>
       </ul>
@@ -755,9 +778,9 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
           </div>        </div>
       </article>
       <article class="card part focus" id="part04" data-part="p04">
-        <div class="part-media"><div class="mi fit fitw"><img src="img/p4-mortar.jpg" alt="시멘트·몰탈 제품 (시멘트, 수지미장 몰탈, 아세아몰탈, MC몰 등)" loading="lazy" width="900" height="650"></div></div>
+        <div class="part-media"><div class="mi two fit fitw"><img src="img/p4-mortar.jpg" alt="시멘트·몰탈 제품 (시멘트, 수지미장 몰탈, 아세아몰탈, MC몰 등)" loading="lazy" width="900" height="650"><img src="img/p4-brick.jpg" alt="벽돌·블록 제품 (시멘트벽돌, 시멘트블럭, 경량인방, ALC블럭, 점토벽돌, 내화벽돌)" loading="lazy" width="900" height="650"></div></div>
         <div class="part-body">
-          <div class="part-no">PART 04<span class="focus-badge">★ 핵심 품목</span></div>
+          <div class="part-no">PART 04</div>
           <h3>내외장재</h3>
           <p class="en">Interior &amp; Exterior Materials · 조적·미장·방수</p>
           <p class="slogan">빈틈없는 보호, 건축의 형태를 구체화하다</p>
@@ -1048,12 +1071,12 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     <div class="wrap">
       <div class="eyebrow">QUOTE REQUEST</div>
       <h2>견적문의</h2>
-      <p class="lead">자재를 고르고, 납품 조건을 정하고, 연락처를 확인하면 요청서가 완성됩니다. 계산기에서 구한 철근·타일 수량도 바로 가져올 수 있습니다. 작성한 내용은 이 브라우저에만 임시 저장되며 서버로 전송되지 않으니, 완성된 요청서는 ‘요청서 복사’로 담당자에게 전달해 주세요.</p>
+      <p class="lead">자재와 수량, 납품 조건을 고르면 견적 요청서 문구가 만들어집니다. 계산기에서 구한 철근·타일 수량도 바로 가져올 수 있습니다. 이름·연락처 같은 개인정보는 입력받지 않고, 입력한 내용은 저장·전송되지 않습니다.</p>
 
       <ol class="qsteps" id="qSteps" aria-label="견적 요청 단계">
         <li><button type="button" class="qs" data-go="1" aria-current="step"><i>1</i><span>자재 선택</span></button></li>
         <li><button type="button" class="qs" data-go="2"><i>2</i><span>납품 조건</span></button></li>
-        <li><button type="button" class="qs" data-go="3"><i>3</i><span>연락처·확인</span></button></li>
+        <li><button type="button" class="qs" data-go="3"><i>3</i><span>추가 요청·확인</span></button></li>
       </ol>
 
       <div class="qlayout">
@@ -1085,7 +1108,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
               <div class="qchips" id="qRegions" role="radiogroup" aria-label="납품 지역">
                 <button type="button" class="qchip" data-region="서울" aria-pressed="false">서울</button><button type="button" class="qchip" data-region="경기" aria-pressed="false">경기</button><button type="button" class="qchip" data-region="인천" aria-pressed="false">인천</button><button type="button" class="qchip" data-region="충청" aria-pressed="false">충청</button><button type="button" class="qchip" data-region="강원" aria-pressed="false">강원</button><button type="button" class="qchip" data-region="경북" aria-pressed="false">경북</button><button type="button" class="qchip" data-region="경남" aria-pressed="false">경남</button><button type="button" class="qchip" data-region="전북" aria-pressed="false">전북</button><button type="button" class="qchip" data-region="전남" aria-pressed="false">전남</button><button type="button" class="qchip" data-region="제주" aria-pressed="false">제주</button>
               </div></div>
-            <div class="field"><label for="qSite">현장명·상세 위치 <span class="req">*</span></label><input id="qSite" type="text" placeholder="예: 화성시 OO 신축현장" maxlength="80"></div>
+            <div class="field"><label for="qSite">현장명·상세 위치 <span class="req">*</span></label><input id="qSite" type="text" placeholder="현장명 또는 상세 위치" maxlength="80"></div>
             <div class="qgroup"><h4>희망 납기</h4>
               <div class="qchips" id="qDue" role="radiogroup" aria-label="희망 납기">
                 <button type="button" class="qchip" data-due="협의" aria-pressed="true">협의</button><button type="button" class="qchip" data-due="3일 이내" aria-pressed="false">3일 이내 (긴급)</button><button type="button" class="qchip" data-due="1주 이내" aria-pressed="false">1주 이내</button><button type="button" class="qchip" data-due="2주 이내" aria-pressed="false">2주 이내</button><button type="button" class="qchip" data-due="날짜 지정" aria-pressed="false">날짜 지정</button>
@@ -1095,35 +1118,27 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
           </div>
 
           <div class="qstep" data-step="3" hidden>
-            <h3 tabindex="-1">연락처를 확인해 주세요</h3>
-            <p class="hint">견적 상담에만 사용합니다. 오른쪽 요청서 미리보기에서 내용을 마지막으로 확인하세요.</p>
-            <div class="qf-row">
-              <div class="field"><label for="qCompany">회사명 <span class="req">*</span></label><input id="qCompany" type="text" autocomplete="organization" maxlength="60"><div class="qerr" id="qCompanyE" hidden></div></div>
-              <div class="field"><label for="qName">담당자명 <span class="req">*</span></label><input id="qName" type="text" autocomplete="name" maxlength="30"><div class="qerr" id="qNameE" hidden></div></div>
-            </div>
-            <div class="qf-row">
-              <div class="field"><label for="qTel">연락처 <span class="req">*</span></label><input id="qTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><div class="qerr" id="qTelE" hidden></div></div>
-              <div class="field"><label for="qMail">이메일 <small>(선택)</small></label><input id="qMail" type="email" autocomplete="email" maxlength="80"><div class="qerr" id="qMailE" hidden></div></div>
-            </div>
-            <div class="field"><label for="qMemo">추가 문의사항 <small>(선택)</small></label><textarea id="qMemo" rows="4" maxlength="500" placeholder="규격, 강도, 납품 조건 등을 적어 주세요."></textarea><div class="hint"><span id="qMemoN">0</span> / 500자</div></div>
-            <div class="field qf-agree"><label><input type="checkbox" id="qAgree"><span>견적 상담을 위한 개인정보(회사명·담당자·연락처) 수집·이용에 동의합니다. <span class="req">*</span></span></label><div class="qerr" id="qAgreeE" hidden></div></div>
+            <h3 tabindex="-1">추가 요청을 적고 확인하세요</h3>
+            <p class="hint">전달할 내용이 있으면 적어 주세요. 이름·연락처 같은 개인정보는 적지 않습니다.</p>
+            <div class="field"><label for="qMemo">추가 요청사항 <small>(선택)</small></label><textarea id="qMemo" rows="5" maxlength="500" placeholder="규격, 강도, 납품 조건 등"></textarea><div class="hint"><span id="qMemoN">0</span> / 500자</div></div>
+            <div class="qnotice">이 화면은 <b>요청서 문구만 만들어 주며</b> 어디에도 전송하거나 저장하지 않습니다. 완성된 문구를 복사해서 직접 전달해 주세요.</div>
           </div>
 
           <div class="qnav">
             <button type="button" class="btn light" id="qPrev" hidden>이전</button>
             <button type="button" class="btn" id="qNext">다음 단계</button>
-            <button type="submit" class="btn" id="qSubmit" hidden>요청서 완성하기</button>
+            <button type="submit" class="btn" id="qSubmit" hidden>요청서 문구 만들기</button>
           </div>
           <p class="qmsg" id="qMsg" role="status" aria-live="polite" hidden></p>
         </form>
 
         <aside class="card qside" aria-label="요청서 미리보기">
-          <div class="qside-h"><h3>요청서 미리보기</h3><span id="qProg">0 / 3 완료</span></div>
+          <div class="qside-h"><h3>요청서 미리보기</h3><span id="qProg">0 / 2 필수</span></div>
           <dl class="qsum">
             <div><dt>자재</dt><dd id="pvItems" class="pv-empty">선택한 자재가 여기에 표시됩니다</dd></div>
             <div><dt>납품</dt><dd id="pvSite" class="pv-empty">지역과 현장을 입력해 주세요</dd></div>
             <div><dt>납기</dt><dd id="pvDue">협의</dd></div>
-            <div><dt>담당</dt><dd id="pvWho" class="pv-empty">회사명과 담당자를 입력해 주세요</dd></div>
+            <div><dt>추가 요청</dt><dd id="pvMemo" class="pv-empty">없음</dd></div>
           </dl>
           <div class="qbar" aria-hidden="true"><div id="qBar"></div></div>
         </aside>
@@ -1131,18 +1146,10 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 
       <div class="card qdone" id="qDone" hidden>
         <div class="qdone-ok" aria-hidden="true">✓</div>
-        <h3>요청서가 완성되었습니다</h3>
-        <p class="hint" style="margin:0 0 6px">접수번호 <b id="qNo"></b></p>
-        <p class="qdone-note">아직 담당자에게 전달된 것이 아닙니다. 아래 ‘요청서 복사’로 복사해서 메신저나 메일에 붙여 넣어 보내 주세요.</p>
+        <h3>요청서 문구가 만들어졌습니다</h3>
+        <p class="qdone-note">아직 어디에도 전달되지 않았습니다. 아래 문구를 복사해 메신저나 메일에 붙여 넣고, 연락처는 보내실 때 직접 덧붙여 주세요.</p>
         <pre class="qdone-txt" id="qTxt"></pre>
         <div class="qnav"><button type="button" class="btn" id="qCopy">요청서 복사</button><button type="button" class="btn light" id="qNew">새 요청서 작성</button></div>
-      </div>
-
-      <div class="card qhist" id="qHist">
-        <div class="qside-h"><h3>최근 작성한 요청서</h3><button type="button" class="qlink" id="qClear" hidden>내역 비우기</button></div>
-        <p class="hint" style="margin:0 0 12px">이 브라우저에 임시 저장된 내역입니다. 연락처는 목록에 표시하지 않으며 최대 20건까지 보관합니다.</p>
-        <div id="qList"></div>
-        <div class="qh-empty" id="qEmpty">아직 작성한 요청서가 없습니다.</div>
       </div>
     </div>
   </section>
@@ -1199,6 +1206,18 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     이 페이지의 내용과 이미지는 「유진기업 하우징플랫폼 건자재 사업」 소개 자료를 바탕으로 만들었습니다.
   </div>
 </footer>
+
+
+<div class="qr-modal" id="qrModal" role="dialog" aria-modal="true" aria-labelledby="qrTitle" hidden>
+  <div class="qr-box">
+    <button type="button" class="qr-close" id="qrClose" aria-label="닫기">&times;</button>
+    <h2 id="qrTitle">휴대폰으로 열어 보세요</h2>
+    <p class="qr-sub">카메라로 QR 코드를 비추면 이 포털이 바로 열립니다.</p>
+    <div class="qr-frame"><svg class="qr-svg" viewBox="0 0 37 37" role="img" aria-label="포털 접속 QR 코드" shape-rendering="crispEdges"><rect width="37" height="37" fill="#fff"/><path d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM15 4h1v1h-1zM19 4h1v1h-1zM23 4h1v1h-1zM26 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM32 4h1v1h-1zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM23 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM13 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM14 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM22 7h1v1h-1zM26 7h1v1h-1zM28 7h1v1h-1zM29 7h1v1h-1zM30 7h1v1h-1zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM29 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM14 9h1v1h-1zM16 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM23 9h1v1h-1zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM29 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM32 10h1v1h-1zM13 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM10 12h1v1h-1zM13 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM28 12h1v1h-1zM31 12h1v1h-1zM4 13h1v1h-1zM9 13h1v1h-1zM15 13h1v1h-1zM20 13h1v1h-1zM24 13h1v1h-1zM25 13h1v1h-1zM26 13h1v1h-1zM29 13h1v1h-1zM32 13h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM15 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM25 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM30 14h1v1h-1zM31 14h1v1h-1zM32 14h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM23 15h1v1h-1zM27 15h1v1h-1zM28 15h1v1h-1zM31 15h1v1h-1zM4 16h1v1h-1zM5 16h1v1h-1zM8 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM21 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM26 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM32 16h1v1h-1zM8 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM18 17h1v1h-1zM20 17h1v1h-1zM24 17h1v1h-1zM26 17h1v1h-1zM29 17h1v1h-1zM32 17h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM13 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM22 18h1v1h-1zM26 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM31 18h1v1h-1zM32 18h1v1h-1zM4 19h1v1h-1zM6 19h1v1h-1zM8 19h1v1h-1zM12 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM17 19h1v1h-1zM19 19h1v1h-1zM20 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM28 19h1v1h-1zM29 19h1v1h-1zM31 19h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM29 21h1v1h-1zM30 21h1v1h-1zM32 21h1v1h-1zM4 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM20 22h1v1h-1zM21 22h1v1h-1zM24 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM5 23h1v1h-1zM7 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM29 23h1v1h-1zM31 23h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM20 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM31 25h1v1h-1zM32 25h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM7 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM15 26h1v1h-1zM17 26h1v1h-1zM20 26h1v1h-1zM21 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM29 26h1v1h-1zM31 26h1v1h-1zM32 26h1v1h-1zM4 27h1v1h-1zM10 27h1v1h-1zM15 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM28 27h1v1h-1zM29 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM7 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM12 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM15 28h1v1h-1zM21 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1zM4 29h1v1h-1zM6 29h1v1h-1zM7 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM13 29h1v1h-1zM15 29h1v1h-1zM16 29h1v1h-1zM20 29h1v1h-1zM21 29h1v1h-1zM24 29h1v1h-1zM25 29h1v1h-1zM28 29h1v1h-1zM30 29h1v1h-1zM31 29h1v1h-1zM32 29h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM10 30h1v1h-1zM12 30h1v1h-1zM13 30h1v1h-1zM14 30h1v1h-1zM15 30h1v1h-1zM17 30h1v1h-1zM23 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM29 30h1v1h-1zM32 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM13 31h1v1h-1zM17 31h1v1h-1zM18 31h1v1h-1zM19 31h1v1h-1zM20 31h1v1h-1zM21 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM31 31h1v1h-1zM4 32h1v1h-1zM5 32h1v1h-1zM6 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM9 32h1v1h-1zM10 32h1v1h-1zM12 32h1v1h-1zM14 32h1v1h-1zM17 32h1v1h-1zM18 32h1v1h-1zM20 32h1v1h-1zM21 32h1v1h-1zM24 32h1v1h-1zM26 32h1v1h-1zM31 32h1v1h-1zM32 32h1v1h-1z" fill="#000"/></svg></div>
+    <a class="qr-url" href="https://julie0807.github.io/dept-portal2/" target="_blank" rel="noopener">https://julie0807.github.io/dept-portal2/</a>
+    <div class="qr-act"><a class="btn" href="img/qr-code.png" download="portal-qr.png">QR 이미지 저장</a></div>
+  </div>
+</div>
 
 <button type="button" class="to-top" id="toTop" aria-label="맨 위로 이동" title="맨 위로">&#8593;</button>
 
@@ -1661,35 +1680,26 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     });
   })();
 
-  /* ===== 견적요청: 3단계 요청서 (서버 전송 없음, 이 브라우저에만 임시 저장) ===== */
+  /* ===== 견적문의: 요청서 문구 만들기 (개인정보 입력 없음, 저장·전송 없음) ===== */
   (function(){
-    var KEY = 'portal-quote-requests', MAX = 20;
     var UNITS = ['톤','㎡','㎥','본','장','박스','포','개','대','L','기타'];
     var DEF = { '철근':'톤','형강':'톤','PHC파일':'본','단열재':'㎡','보드':'장','타일':'박스','위생기구':'개','가전':'대','시멘트':'톤','드라이몰탈':'포','벽돌블록':'장','바닥재':'㎡','목재':'㎥','동계연료':'L' };
     var form = document.getElementById('quoteForm');
     var $ = function(id){ return document.getElementById(id); };
     var steps = Array.prototype.slice.call(form.querySelectorAll('.qstep'));
     var stepBtns = Array.prototype.slice.call(document.querySelectorAll('#qSteps .qs'));
-    var cur = 1, maxOk = 0;
-    var sel = [], region = '', due = '협의', memStore = [];
+    var cur = 1, maxOk = 0, sel = [], region = '', due = '협의', lastText = '';
 
     function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
     function v(id){ return $(id).value.trim(); }
-    function stamp(t){ var d = new Date(t), p = function(n){ return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); }
-    function load(){ try { var a = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return memStore; } }
-    function save(a){ memStore = a; try { localStorage.setItem(KEY, JSON.stringify(a)); return true; } catch (e) { return false; } }
     function itemText(it){ return it.name + (it.qty ? ' ' + it.qty + (it.unit === '기타' ? '' : it.unit) : '') + (it.note ? ' (' + it.note + ')' : ''); }
     function dueText(){ return due === '날짜 지정' ? (v('qDate') || '날짜 미정') : due; }
-    function plain(q){
-      var L = ['[견적 요청서] ' + q.no, '회사명: ' + q.company, '담당자: ' + q.name, '연락처: ' + q.tel];
-      if (q.mail) L.push('이메일: ' + q.mail);
-      L.push('요청 자재: ' + q.items.map(itemText).join(', '), '납품 현장: ' + q.region + ' ' + q.site, '희망 납기: ' + q.due);
-      if (q.memo) L.push('추가 문의: ' + q.memo);
-      L.push('작성: ' + stamp(q.at));
+    function build(){
+      var L = ['[견적 요청]', '요청 자재: ' + sel.map(itemText).join(', '), '납품 현장: ' + region + ' ' + v('qSite'), '희망 납기: ' + dueText()];
+      if (v('qMemo')) L.push('추가 요청: ' + v('qMemo'));
       return L.join('\n');
     }
 
-    /* ---- 단계 이동 ---- */
     function go(n, focus){
       cur = n;
       steps.forEach(function(s, i){ s.hidden = (i + 1) !== n; });
@@ -1701,24 +1711,14 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
       $('qMsg').hidden = true;
       if (focus) { var h = steps[n - 1].querySelector('h3'); if (h) h.focus({ preventScroll: true }); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     }
-    function err(id, text){ var e = $(id + 'E'); if (e) { e.textContent = text; e.hidden = false; } var f = $(id); if (f && f.classList) f.classList.add('invalid'); }
     function clear(){ form.querySelectorAll('.invalid').forEach(function(e){ e.classList.remove('invalid'); }); form.querySelectorAll('.qerr').forEach(function(e){ e.hidden = true; }); }
     function validate(n){
       clear(); var first = null;
       if (n === 1 && !sel.length) { $('qItemsE').textContent = '필요한 자재를 한 가지 이상 선택해 주세요.'; $('qItemsE').hidden = false; first = form.querySelector('.qchip'); }
       if (n === 2) {
         if (!region) { $('qSiteE').textContent = '납품 지역을 선택해 주세요.'; $('qSiteE').hidden = false; first = form.querySelector('[data-region]'); }
-        if (!v('qSite')) { err('qSite', '현장명이나 상세 위치를 입력해 주세요.'); first = first || $('qSite'); }
+        if (!v('qSite')) { $('qSite').classList.add('invalid'); $('qSiteE').textContent = region ? '현장명이나 상세 위치를 입력해 주세요.' : '납품 지역을 선택하고 현장명이나 상세 위치를 입력해 주세요.'; $('qSiteE').hidden = false; first = first || $('qSite'); }
         if (due === '날짜 지정' && !v('qDate')) { $('qSiteE').textContent = '납기일을 선택하거나 다른 납기 옵션을 골라 주세요.'; $('qSiteE').hidden = false; first = first || $('qDate'); }
-      }
-      if (n === 3) {
-        if (!v('qCompany')) { err('qCompany', '회사명을 입력해 주세요.'); first = first || $('qCompany'); }
-        if (!v('qName')) { err('qName', '담당자명을 입력해 주세요.'); first = first || $('qName'); }
-        var tel = v('qTel');
-        if (!tel) { err('qTel', '연락처를 입력해 주세요.'); first = first || $('qTel'); }
-        else if (tel.replace(/[^0-9]/g, '').length < 8 || /[^0-9\-+()\s]/.test(tel)) { err('qTel', '숫자와 하이픈(-)으로 입력해 주세요.'); first = first || $('qTel'); }
-        if (v('qMail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('qMail'))) { err('qMail', '이메일 형식을 확인해 주세요.'); first = first || $('qMail'); }
-        if (!$('qAgree').checked) { $('qAgreeE').textContent = '개인정보 수집·이용에 동의해 주세요.'; $('qAgreeE').hidden = false; first = first || $('qAgree'); }
       }
       if (first) { first.focus(); var m = $('qMsg'); m.textContent = '입력 내용을 확인해 주세요.'; m.hidden = false; return false; }
       return true;
@@ -1734,10 +1734,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
       });
     });
 
-    /* ---- 자재 선택 ---- */
     function rows(){
-      var box = $('qRows');
-      box.innerHTML = sel.map(function(it, i){
+      $('qRows').innerHTML = sel.map(function(it, i){
         return '<div class="qrow" data-i="' + i + '"><b>' + esc(it.name) + '</b>' +
           '<input type="text" inputmode="decimal" data-k="qty" aria-label="' + esc(it.name) + ' 수량" placeholder="수량(미정이면 비워 두세요)" value="' + esc(it.qty) + '" maxlength="14">' +
           '<select data-k="unit" aria-label="' + esc(it.name) + ' 단위">' + UNITS.map(function(u){ return '<option' + (u === it.unit ? ' selected' : '') + '>' + u + '</option>'; }).join('') + '</select>' +
@@ -1778,16 +1776,12 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
       var d = e.target.closest('[data-del]');
       if (d) { sel.splice(+d.getAttribute('data-del'), 1); rows(); }
     });
-    $('qRows').addEventListener('input', function(e){
+    function rowEdit(e){
       var r = e.target.closest('.qrow'), k = e.target.getAttribute('data-k'); if (!r || !k) return;
       sel[+r.getAttribute('data-i')][k] = e.target.value; preview();
-    });
-    $('qRows').addEventListener('change', function(e){
-      var r = e.target.closest('.qrow'), k = e.target.getAttribute('data-k'); if (!r || !k) return;
-      sel[+r.getAttribute('data-i')][k] = e.target.value; preview();
-    });
+    }
+    $('qRows').addEventListener('input', rowEdit); $('qRows').addEventListener('change', rowEdit);
 
-    /* ---- 계산기 결과 가져오기 ---- */
     function imp(kind){
       var m = $('qImpMsg'), r = kind === 'rebar' ? window.__qRebar : window.__qTile;
       if (!r) { m.textContent = (kind === 'rebar' ? '철근' : '타일') + ' 계산기에서 먼저 수량을 계산해 주세요.'; return; }
@@ -1797,16 +1791,15 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     $('qImpRebar').addEventListener('click', function(){ imp('rebar'); });
     $('qImpTile').addEventListener('click', function(){ imp('tile'); });
 
-    /* ---- 미리보기 ---- */
     function setPv(id, text, empty){ var e = $(id); e.textContent = text; e.classList.toggle('pv-empty', !!empty); }
     function preview(){
-      var i1 = sel.length > 0, i2 = !!region && !!v('qSite'), i3 = !!v('qCompany') && !!v('qName');
+      var i1 = sel.length > 0, i2 = !!region && !!v('qSite');
       setPv('pvItems', i1 ? sel.map(itemText).join(' · ') : '선택한 자재가 여기에 표시됩니다', !i1);
       setPv('pvSite', (region || v('qSite')) ? ((region || '') + ' ' + v('qSite')).trim() : '지역과 현장을 입력해 주세요', !(region || v('qSite')));
       setPv('pvDue', dueText(), false);
-      setPv('pvWho', (v('qCompany') || v('qName')) ? (v('qCompany') + ' ' + v('qName')).trim() : '회사명과 담당자를 입력해 주세요', !(v('qCompany') || v('qName')));
-      var n = (i1 ? 1 : 0) + (i2 ? 1 : 0) + (i3 ? 1 : 0);
-      $('qProg').textContent = n + ' / 3 완료'; $('qBar').style.width = Math.round(n / 3 * 100) + '%';
+      setPv('pvMemo', v('qMemo') || '없음', !v('qMemo'));
+      var n = (i1 ? 1 : 0) + (i2 ? 1 : 0);
+      $('qProg').textContent = n + ' / 2 필수'; $('qBar').style.width = Math.round(n / 2 * 100) + '%';
     }
     form.addEventListener('input', function(e){
       var t = e.target; if (t.classList) t.classList.remove('invalid');
@@ -1816,29 +1809,20 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     });
     form.addEventListener('change', function(e){ var er = $(e.target.id + 'E'); if (er) er.hidden = true; preview(); });
 
-    /* ---- 제출·내역 ---- */
     function reset(){
       sel = []; region = ''; due = '협의'; maxOk = 0;
-      form.querySelectorAll('input[type=text],input[type=tel],input[type=email],input[type=date],textarea').forEach(function(f){ f.value = ''; });
-      $('qAgree').checked = false; $('qMemoN').textContent = '0';
+      form.querySelectorAll('input[type=text],input[type=date],textarea').forEach(function(f){ f.value = ''; });
+      $('qMemoN').textContent = '0';
       form.querySelectorAll('[data-region]').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
       form.querySelectorAll('[data-due]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-due') === '협의' ? 'true' : 'false'); });
       $('qDateBox').hidden = true; $('qImpMsg').textContent = ''; clear(); rows(); go(1, false);
     }
-    var lastText = '';
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      for (var s = 1; s <= 3; s++) { if (!validate(s)) { go(s, false); var f = form.querySelector('.invalid'); return; } }
-      var arr = load(), d = new Date(), p = function(n){ return (n < 10 ? '0' : '') + n; };
-      var day = d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate());
-      var seq = arr.filter(function(q){ return q.no && q.no.indexOf('Q-' + day) === 0; }).length + 1;
-      var rec = { id: 'q' + Date.now(), no: 'Q-' + day + '-' + p(seq), at: Date.now(), items: sel.map(function(s){ return { name: s.name, qty: String(s.qty || '').trim(), unit: s.unit, note: String(s.note || '').trim() }; }),
-        region: region, site: v('qSite'), due: dueText(), company: v('qCompany'), name: v('qName'), tel: v('qTel'), mail: v('qMail'), memo: v('qMemo') };
-      arr.unshift(rec); var ok = save(arr.slice(0, MAX)); lastText = plain(rec);
-      $('qNo').textContent = rec.no; $('qTxt').textContent = lastText;
-      $('qDone').hidden = false; form.closest('.qlayout').hidden = true; $('qSteps').hidden = true; renderList();
+      for (var s = 1; s <= 2; s++) { if (!validate(s)) { go(s, false); return; } }
+      lastText = build(); $('qTxt').textContent = lastText;
+      $('qDone').hidden = false; form.closest('.qlayout').hidden = true; $('qSteps').hidden = true;
       $('qDone').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (!ok) $('qTxt').textContent = lastText + '\n\n※ 이 브라우저는 저장을 막고 있어 화면을 닫으면 내역이 사라집니다.';
     });
     function copyText(text, done){
       function fb(){ var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (x) {} document.body.removeChild(t); done(ok); }
@@ -1847,27 +1831,27 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     $('qCopy').addEventListener('click', function(){ var b = this; copyText(lastText, function(ok){ b.textContent = ok ? '복사되었습니다' : '복사 실패 - 직접 선택해 복사해 주세요'; setTimeout(function(){ b.textContent = '요청서 복사'; }, 1800); }); });
     $('qNew').addEventListener('click', function(){ $('qDone').hidden = true; form.closest('.qlayout').hidden = false; $('qSteps').hidden = false; reset(); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 
-    function renderList(){
-      var arr = load();
-      $('qList').innerHTML = arr.map(function(q){
-        var its = q.items || [];
-        return '<div class="qitem" data-id="' + esc(q.id) + '"><div class="qitem-top"><b>' + esc(q.company) + ' · ' + esc(q.no || '') + '</b><time>' + stamp(q.at) + '</time></div>' +
-          '<div class="qitem-tags">' + its.map(function(it){ return '<span>' + esc(it.name) + (it.qty ? ' ' + esc(it.qty) + esc(it.unit === '기타' ? '' : it.unit) : '') + '</span>'; }).join('') + '</div>' +
-          '<p>' + esc(q.region || '') + ' ' + esc(q.site || '') + ' · 납기 ' + esc(q.due || '') + ' · 담당 ' + esc(q.name) + '</p>' +
-          '<div class="qitem-act"><button type="button" class="qlink" data-act="copy">요청서 복사</button><button type="button" class="qlink" data-act="del">삭제</button></div></div>';
-      }).join('');
-      $('qEmpty').hidden = arr.length !== 0; $('qClear').hidden = arr.length === 0;
-    }
-    $('qList').addEventListener('click', function(e){
-      var b = e.target.closest('button[data-act]'); if (!b) return;
-      var id = b.closest('.qitem').getAttribute('data-id'), arr = load();
-      if (b.getAttribute('data-act') === 'del') { save(arr.filter(function(q){ return q.id !== id; })); renderList(); return; }
-      var q = arr.filter(function(x){ return x.id === id; })[0]; if (!q) return;
-      copyText(plain(q), function(ok){ b.textContent = ok ? '복사됨' : '복사 실패'; setTimeout(function(){ b.textContent = '요청서 복사'; }, 1600); });
-    });
-    $('qClear').addEventListener('click', function(){ if (window.confirm('저장된 요청서 내역을 모두 지울까요?')) { save([]); renderList(); } });
+    rows(); go(1, false);
+  })();
 
-    rows(); go(1, false); renderList();
+  /* ===== QR 팝업 ===== */
+  (function(){
+    var btn = document.getElementById('qrBtn'), m = document.getElementById('qrModal'), x = document.getElementById('qrClose');
+    if (!btn || !m) return;
+    function open(){ m.hidden = false; document.body.style.overflow = 'hidden'; x.focus(); }
+    function close(){ m.hidden = true; document.body.style.overflow = ''; btn.focus(); }
+    btn.addEventListener('click', open);
+    x.addEventListener('click', close);
+    m.addEventListener('click', function(e){ if (e.target === m) close(); });
+    document.addEventListener('keydown', function(e){
+      if (m.hidden) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'Tab') {
+        var f = m.querySelectorAll('a[href],button'), a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+      }
+    });
   })();
 
 })();
